@@ -1,0 +1,1 @@
+Make sure the relevant shader and material share the same name
