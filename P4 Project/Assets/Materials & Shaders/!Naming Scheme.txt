@@ -1,1 +1,1 @@
-Make sure the relevant shader and material share the same name
+Make sure the relevant shader and material share the same name (I no longer believe this is actually a good naming scheme, but I'm too committed)
