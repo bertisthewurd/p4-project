@@ -1,37 +1,88 @@
-using System;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class VideoSelector : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public VideoPlayer videoPlayer;
+
+    private string videoBasePath;
+
+    void Awake()
     {
-        SceneSelector.playSequence += DisplayVideo; //Subscribe the DisplayVideo method to the playSequence event.
+        videoPlayer = GetComponent<VideoPlayer>();
+        videoBasePath = "file:///" + Application.dataPath.Replace(" ", "%20") + "/Videos/";
+        SceneSelector.playScene += DisplayVideo;
+        Debug.Log("VideoSelector started. Base path: " + videoBasePath);
     }
 
-    private void DisplayVideo(int sceneID)
+    void OnDestroy()
     {
-        switch (sceneID)
+        // Always unsubscribe to avoid memory leaks and phantom callbacks.
+        SceneSelector.playScene -= DisplayVideo;
+    }
+
+    // sequenceIndex: which sequence we are in.
+    // sceneID:       the chosen scene index within that sequence.
+    private void DisplayVideo(int sequenceIndex, int sceneID)
+    {
+        string videoPath = null;
+
+        switch (sequenceIndex)
         {
             case 0:
-                Debug.Log(sceneID);
+                // Sequence 0 has only one scene.
+                videoPath = videoBasePath + "testVideo.mp4";
                 break;
+
             case 1:
-                //Logic to display video for scene 1
+                switch (sceneID)
+                {
+                    case 0: videoPath = videoBasePath + "testVideo.mp4"; break;
+                    case 1: videoPath = videoBasePath + "testVideo.mp4"; break;
+                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+                }
                 break;
+
             case 2:
-                //Logic to display video for scene 2
+                videoPath = videoBasePath + "Seq2_Scene0.mp4";
                 break;
-            //Add more cases as needed for additional scenes.
+
+            case 3:
+                switch (sceneID)
+                {
+                    case 0: videoPath = videoBasePath + "Seq3_Scene0.mp4"; break;
+                    case 1: videoPath = videoBasePath + "Seq3_Scene1.mp4"; break;
+                    case 2: videoPath = videoBasePath + "Seq3_Scene2.mp4"; break;
+                    case 3: videoPath = videoBasePath + "Seq3_Scene3.mp4"; break;
+                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+                }
+                break;
+
+            case 4:
+                videoPath = videoBasePath + "Seq4_Scene0.mp4";
+                break;
+
+            case 5:
+                switch (sceneID)
+                {
+                    case 0: videoPath = videoBasePath + "Seq5_Scene0.mp4"; break;
+                    case 1: videoPath = videoBasePath + "Seq5_Scene1.mp4"; break;
+                    case 2: videoPath = videoBasePath + "Seq5_Scene2.mp4"; break;
+                    case 3: videoPath = videoBasePath + "Seq5_Scene3.mp4"; break;
+                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+                }
+                break;
+
             default:
-                Debug.LogWarning("Scene ID not recognized: " + sceneID);
+                Debug.LogWarning($"Unrecognised sequence index: {sequenceIndex}");
                 break;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (videoPath != null)
+        {
+            Debug.Log("Attempting to play: " + videoPath);
+            videoPlayer.url = videoPath;
+            videoPlayer.Play();
+        }
     }
 }
