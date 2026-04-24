@@ -31,14 +31,14 @@ public class VideoSelector : MonoBehaviour
         {
             case 0:
                 // Sequence 0 has only one scene.
-                videoPath = videoBasePath + "testVideo.mp4";
+                videoPath = videoBasePath + "Seq0_Scene0.mp4";
                 break;
 
             case 1:
                 switch (sceneID)
                 {
-                    case 0: videoPath = videoBasePath + "testVideo.mp4"; break;
-                    case 1: videoPath = videoBasePath + "testVideo.mp4"; break;
+                    case 0: videoPath = videoBasePath + "Seq1_Scene0.mp4"; break;
+                    case 1: videoPath = videoBasePath + "Seq1_Scene1.mp4"; break;
                     default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
                 }
                 break;

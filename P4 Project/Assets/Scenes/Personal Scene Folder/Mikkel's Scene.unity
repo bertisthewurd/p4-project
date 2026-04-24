@@ -556,7 +556,10 @@ MonoBehaviour:
   videoPlayer: {fileID: 1471822504}
   narrativeOptionPrefab: {fileID: 8163462826871804435, guid: 0b6ac0f973e1d4b49bb378c01fabd998, type: 3}
   uiCanvas: {fileID: 738877785}
-  buttonSpacing: 220
+  buttonWidth: 550
+  buttonHeight: 80
+  buttonSpacing: 30
+  bottomPadding: 30
   buttonsAppearBeforeEnd: 5
 --- !u!114 &1471822508
 MonoBehaviour:
