@@ -17,6 +17,14 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
+        if (PickUp.IsHolding)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+                PickUp.DropCurrent();
+            playerUI.UpdateText(string.Empty);
+            return;
+        }
+
         playerUI.UpdateText(string.Empty);
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
