@@ -14,7 +14,14 @@ public class PickUp : Interactable
     private Collider playerCollider;
     private Rigidbody playerRb;
 
+    private bool inSlot = false;
+    private FrameSlot currentSlot;
+    public bool IsInSlot => inSlot;
+
     public static bool IsHolding => holding;
+
+    public static PickUp CurrentlyHeld =>
+        (holding && heldObject != null) ? heldObject.GetComponent<PickUp>() : null;
 
     public static void DropCurrent()
     {
@@ -75,6 +82,20 @@ public class PickUp : Interactable
     private void Pickup()
     {
         if (holding || holdPoint == null) return;
+        PickUpIntoHand();
+        Debug.Log($"Picked up {gameObject.name}");
+    }
+
+    // Public so FrameSlot can reuse the same setup when transferring a frame
+    // from a slot directly into the player's hand (e.g., during a swap).
+    public void PickUpIntoHand()
+    {
+        if (holdPoint == null) return;
+        if (holding && heldObject != rb)
+        {
+            Debug.LogWarning($"Cannot pick up {gameObject.name}: another object is already held.");
+            return;
+        }
 
         originalPromptMessage = promptMessage;
         promptMessage = "";
@@ -82,6 +103,7 @@ public class PickUp : Interactable
         heldObject = rb;
         holding = true;
 
+        rb.isKinematic = false;
         rb.useGravity = false;
         rb.linearDamping = 12f;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -89,8 +111,57 @@ public class PickUp : Interactable
         rb.angularVelocity = Vector3.zero;
 
         SetCollisionWithPlayer(true);
+    }
 
-        Debug.Log($"Picked up {gameObject.name}");
+    // Snap into a FrameSlot. Clears any held state on this frame and locks it
+    // in place. The frame's own colliders are disabled so the player's raycast
+    // hits the slot's collider while the frame is parked.
+    public void PlaceInSlot(FrameSlot slot)
+    {
+        if (slot == null) return;
+
+        if (heldObject == rb)
+        {
+            heldObject = null;
+            holding = false;
+            promptMessage = originalPromptMessage;
+            SetCollisionWithPlayer(false);
+        }
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+
+        Transform target = slot.snapPoint != null ? slot.snapPoint : slot.transform;
+        transform.SetPositionAndRotation(target.position, target.rotation);
+
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+            c.enabled = false;
+
+        inSlot = true;
+        currentSlot = slot;
+
+        Debug.Log($"Placed {gameObject.name} in {slot.name}");
+    }
+
+    // Free this frame from its slot. Restores physics but does not put it in
+    // the player's hand — call PickUpIntoHand() for that.
+    public void RemoveFromSlot()
+    {
+        if (!inSlot) return;
+
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+            c.enabled = true;
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+
+        inSlot = false;
+        currentSlot = null;
+
+        Debug.Log($"Removed {gameObject.name} from slot");
     }
 
     private void SetCollisionWithPlayer(bool ignore)

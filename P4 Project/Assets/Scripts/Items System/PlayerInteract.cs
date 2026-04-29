@@ -17,30 +17,76 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
-        if (PickUp.IsHolding)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-                PickUp.DropCurrent();
-            playerUI.UpdateText(string.Empty);
-            return;
-        }
-
         playerUI.UpdateText(string.Empty);
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance);
-        RaycastHit hitInfo;
-        if (Physics.SphereCast(ray, 0.05f, out hitInfo, distance))
+
+        // Cast against everything, then walk the hits front-to-back so we can
+        // see past the held frame (which sits between camera and the world)
+        // and past empty slots / other "transparent" trigger volumes.
+        PickUp held = PickUp.CurrentlyHeld;
+        Transform camRoot = cam != null ? cam.transform.root : null;
+        RaycastHit[] hits = Physics.SphereCastAll(ray, 0.05f, distance);
+
+        Interactable hit = null;
+        if (hits.Length > 0)
         {
-            if(hitInfo.collider.GetComponent<Interactable>() != null)
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit h in hits)
             {
-                Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                playerUI.UpdateText(interactable.promptMessage);
-                if (Input.GetKeyDown(KeyCode.E))
+                // Skip the player's own hierarchy (camera may overlap the player capsule).
+                if (camRoot != null && h.collider.transform.IsChildOf(camRoot))
+                    continue;
+                // Skip the currently-held frame.
+                if (held != null && h.collider.transform.IsChildOf(held.transform))
+                    continue;
+
+                // Walk up the hierarchy — the Interactable may live on a parent
+                // (e.g. a FrameSlot whose BoxCollider is on a Cube child).
+                Interactable candidate = h.collider.GetComponentInParent<Interactable>();
+                if (candidate != null)
                 {
-                    interactable.BaseInteract();
+                    // Treat empty-prompt interactables (e.g. an empty FrameSlot when
+                    // we're not holding anything) as "nothing to do here, look past".
+                    if (string.IsNullOrEmpty(candidate.promptMessage))
+                        continue;
+
+                    hit = candidate;
+                    break;
                 }
+
+                // Solid (non-trigger) hit without an Interactable: this is a wall or
+                // similar — it should genuinely block our line of sight.
+                if (!h.collider.isTrigger)
+                    break;
+
+                // Trigger without an Interactable (logic volume, etc.): keep looking.
             }
+        }
+
+        if (PickUp.IsHolding)
+        {
+            // While holding, only FrameSlot interactables are valid targets:
+            // place into an empty slot, or swap with a filled one.
+            if (hit is FrameSlot slot)
+            {
+                playerUI.UpdateText(slot.promptMessage);
+                if (Input.GetKeyDown(KeyCode.E))
+                    slot.BaseInteract();
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+                PickUp.DropCurrent();
+            return;
+        }
+
+        if (hit != null)
+        {
+            playerUI.UpdateText(hit.promptMessage);
+            if (Input.GetKeyDown(KeyCode.E))
+                hit.BaseInteract();
         }
     }
 }
