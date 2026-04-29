@@ -9,6 +9,7 @@ public class PlayerInteract : MonoBehaviour
     private float distance = 3f;
     [SerializeField]
     private PlayerUI playerUI;
+    private Interactable _currentFocus;
     void Start()
     {
         //cam = GetComponent<Camera>();
@@ -65,6 +66,14 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
+        // Notify focus changes so interactables can show/hide highlights.
+        if (hit != _currentFocus)
+        {
+            _currentFocus?.OnFocusExit();
+            _currentFocus = hit;
+            _currentFocus?.OnFocusEnter();
+        }
+
         if (PickUp.IsHolding)
         {
             // While holding, only FrameSlot interactables are valid targets:
@@ -88,5 +97,11 @@ public class PlayerInteract : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
                 hit.BaseInteract();
         }
+    }
+
+    void OnDisable()
+    {
+        _currentFocus?.OnFocusExit();
+        _currentFocus = null;
     }
 }

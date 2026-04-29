@@ -12,9 +12,8 @@ public abstract class Interactable : MonoBehaviour
         Interact();
     }
 
-    protected virtual void Interact()
-    {
+    protected virtual void Interact() { }
 
-    }
-   
+    public virtual void OnFocusEnter() { }
+    public virtual void OnFocusExit() { }
 }
