@@ -705,6 +705,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1838340528077126324, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838340528077126324, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: m_LinearDamping
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.36219
@@ -744,6 +752,42 @@ PrefabInstance:
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: jump
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: sprint
+      value: 304
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: rayLength
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: walkingDamp
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: acceleration
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: walkingSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: sprintingDamp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992552573816584005, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: sprintingSpeed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9028957243497241425, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_Name
