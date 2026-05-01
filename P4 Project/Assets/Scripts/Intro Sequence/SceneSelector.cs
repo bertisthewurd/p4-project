@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -68,6 +69,10 @@ public class SceneSelector : SceneManager
             currentSequence++;
             currentScene = 0;
         }
+        
+        Debug.Log("No More Sequences");
+        Debug.Log("Attempting to load Main Scene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Scene");
     }
 
     private IEnumerator PlaySceneCoroutine(int sequenceIndex, int sceneIndex)
