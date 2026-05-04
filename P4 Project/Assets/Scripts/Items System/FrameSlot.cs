@@ -175,18 +175,20 @@ public class FrameSlot : Interactable
             ApplyGhostMaterial();
         }
         float from = _ghostInstance.GetFloat(_transparencyId);
-        _visualRoutine = StartCoroutine(AnimateTransparency(from, 0f, lockFadeDuration, false));
+        _visualRoutine = StartCoroutine(AnimateTransparency(from, 0f, lockFadeDuration, restoreAtEnd: false));
     }
 
     public void Unlock()
     {
         if (!IsLocked) return;
-        IsLocked = false;
-        if (_ghostInstance == null || lockTargetRenderer == null) return;
+        if (_ghostInstance == null || lockTargetRenderer == null || !IsGhostApplied())
+        {
+            IsLocked = false;
+            return;
+        }
         if (_visualRoutine != null) StopCoroutine(_visualRoutine);
-        if (!IsGhostApplied()) return;
         float from = _ghostInstance.GetFloat(_transparencyId);
-        _visualRoutine = StartCoroutine(AnimateTransparency(from, 1f, unlockFadeDuration, true));
+        _visualRoutine = StartCoroutine(AnimateTransparency(from, 1f, unlockFadeDuration, restoreAtEnd: true, unlockAtEnd: true));
     }
 
     private bool IsGhostApplied()
@@ -210,7 +212,7 @@ public class FrameSlot : Interactable
         lockTargetRenderer.sharedMaterials = _originalMaterials;
     }
 
-    private IEnumerator AnimateTransparency(float from, float to, float duration, bool restoreAtEnd)
+    private IEnumerator AnimateTransparency(float from, float to, float duration, bool restoreAtEnd, bool unlockAtEnd = false)
     {
         duration = Mathf.Max(0.01f, duration);
         float t = 0f;
@@ -224,6 +226,8 @@ public class FrameSlot : Interactable
         _ghostInstance.SetFloat(_transparencyId, to);
         if (restoreAtEnd)
             RestoreOriginalMaterials();
+        if (unlockAtEnd)
+            IsLocked = false;
         _visualRoutine = null;
     }
 
