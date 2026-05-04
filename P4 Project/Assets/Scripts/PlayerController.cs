@@ -10,12 +10,17 @@ public class PlayerController : MonoBehaviour
     private Vector2 rotation = Vector2.zero;
     
     [Header("Movement")] public float acceleration;
-    public float topSpeed;
+    public float walkingSpeed, sprintingSpeed;
+    
+    [Header("Jumping")] public float jumpForce;
+    public float rayLength;
     
     [Header("Keys")] public KeyCode forward;
-    public KeyCode backward, left, right;
+    public KeyCode backward, left, right, sprint, jump;
 
     private Vector3 movement;
+    private float topSpeed;
+    private bool isGrounded;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,10 +29,23 @@ public class PlayerController : MonoBehaviour
         head = transform.GetChild(0).gameObject;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        topSpeed = walkingSpeed;
     }
 
     void Update()
     {
+        if (Input.GetKeyUp(sprint))
+        {
+                topSpeed = walkingSpeed;
+                Debug.Log("Walking");
+        }
+
+        if (Input.GetKeyDown(sprint))
+        {
+            topSpeed = sprintingSpeed;
+            Debug.Log("Sprinting");
+        }
+        
         if (Input.GetKey(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -39,8 +57,16 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        CheckGround();
+        
+        if (Input.GetKeyDown(jump) && isGrounded)
+        {
+            InitiateJump();
+        }
         
         CameraMovement();
+        
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -73,15 +99,13 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (movement != Vector3.zero)
-            rb.AddForce(acceleration * Time.deltaTime * 100 * transform.TransformDirection(movement), ForceMode.Impulse);
-        if (rb.linearVelocity.magnitude > topSpeed)
+        if (rb.linearVelocity.magnitude < topSpeed)
         {
-            float temp = rb.linearVelocity.magnitude - topSpeed;
-            //Vector3 tempVector = temp * -1 * rb.linearVelocity.normalized;
-            //Debug.Log("TOP SPEED: " + rb.linearVelocity.magnitude + " / SPEED OVER LIMIT: " + temp + "FORCE ADDED: (" + tempVector.x + ", " + tempVector.y + ", " + tempVector.z + ")");
-            rb.AddForce(temp * -1 * rb.linearVelocity.normalized);
+            if (movement != Vector3.zero)
+                rb.AddForce(acceleration * transform.TransformDirection(movement));
         }
+        
+        //Debug.Log("Velocity: " + rb.linearVelocity.magnitude);
     }
 
     void CameraMovement()
@@ -95,5 +119,24 @@ public class PlayerController : MonoBehaviour
         
         transform.localRotation = xQuaternion;
         head.transform.localRotation = yQuaternion;
+    }
+
+    void CheckGround()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, rayLength))
+        {
+            Debug.Log("Grounded");
+            isGrounded = true;
+        }
+        else
+        {
+            Debug.Log("Not Grounded");
+            isGrounded = false;
+        }
+    }
+
+    void InitiateJump()
+    {
+        rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
     }
 }

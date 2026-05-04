@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -23,7 +22,8 @@ public class SceneSelector : SceneManager
 
     [Header("Selection Timing")]
     [Tooltip("How many seconds before the current video ends that the selection buttons appear.")]
-    public float buttonsAppearBeforeEnd = 5f;
+    public float[] visibleButtonTime = new float[6];
+    private float buttonsAppearBeforeEnd = 5f;
 
     private int selectedScene = 0;
     private bool sceneWasSelected = false;
@@ -80,6 +80,7 @@ public class SceneSelector : SceneManager
         int sceneID = sceneMatrix[sequenceIndex][sceneIndex];
         Debug.Log($"Playing Sequence {sequenceIndex}, Scene {sceneID}");
         playScene?.Invoke(sequenceIndex, sceneID);
+        buttonsAppearBeforeEnd = visibleButtonTime[sequenceIndex];
 
         // Wait until the VideoPlayer has fully prepared before reading its length.
         bool isPrepared = false;

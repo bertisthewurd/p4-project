@@ -560,7 +560,13 @@ MonoBehaviour:
   buttonHeight: 80
   buttonSpacing: 30
   bottomPadding: 30
-  buttonsAppearBeforeEnd: 5
+  visibleButtonTime:
+  - 2
+  - 0
+  - 4
+  - 0
+  - 8
+  - 0
 --- !u!114 &1471822508
 MonoBehaviour:
   m_ObjectHideFlags: 0

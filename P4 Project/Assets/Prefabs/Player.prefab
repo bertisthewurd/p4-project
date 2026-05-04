@@ -300,12 +300,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   Sensitivity: 2
   verticalClamp: 43
-  acceleration: 0.3
-  topSpeed: 1
+  acceleration: 50
+  walkingSpeed: 3
+  sprintingSpeed: 6
+  jumpForce: 10
+  rayLength: 1.2
   forward: 119
   backward: 115
   left: 97
   right: 100
+  sprint: 304
+  jump: 32
 --- !u!54 &1838340528077126324
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,8 +319,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9028957243497241425}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 3
+  m_Mass: 2
+  m_LinearDamping: 0.02
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
