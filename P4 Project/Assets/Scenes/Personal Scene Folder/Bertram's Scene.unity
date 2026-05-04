@@ -707,7 +707,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.36219
+      value: -2.55
       objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.y
@@ -715,7 +715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.913902
+      value: -3.56
       objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalRotation.w
@@ -749,11 +749,72 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9028957243497241425, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+--- !u!1001 &6574823554099536000
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1471554704443743315, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_Name
+      value: Win Con Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.71794
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.96937
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.88875
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
 --- !u!1001 &9204496157788152498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -822,3 +883,4 @@ SceneRoots:
   - {fileID: 657240770}
   - {fileID: 2118908152043663054}
   - {fileID: 9204496157788152498}
+  - {fileID: 6574823554099536000}
