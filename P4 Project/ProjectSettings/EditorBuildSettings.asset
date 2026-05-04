@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Personal Scene Folder/Mikkel's Scene.unity
     guid: 0c46387e32bc5e34b9097d3855035b57
+  - enabled: 1
+    path: Assets/Scenes/Main Scene.unity
+    guid: d565d030cb82b1f459e71f3165965d2b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
