@@ -1,20 +1,20 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource))] // This attribute tells Unity that this script REQUIRES an AudioSource component on the same GameObject.
 public class PuzzleObject : MonoBehaviour
 {
 
     public string objectName;  // "Shoes", "Typewriter", etc.
-    public PuzzleSoundData correctSound;   // What SHOULD be here 
-    public PuzzleSoundData startingSound;  // What's here at puzzle start (the scrambled one)
+    public PuzzleSoundData correctSound;   // Refference to PuzzleSoundData asset that should be attached to the object when puzzle is solved 
+    public PuzzleSoundData startingSound;  // Refference to PuzzleSoundData asset on the object at the start (the scrambled one)
     
-    private AudioSource audioSource;
-    private PuzzleSoundData currentSound;
+    private AudioSource audioSource;  //Audiosource component
+    private PuzzleSoundData currentSound;  // Sound currently assigned to the object
 
-    public bool IsCorrect => correctSound == correctSound;
-    public bool IsEmpty => currentSound == null;
+    public bool IsCorrect => currentSound == correctSound;  //Returns true if currentSound is the right one
+    public bool IsEmpty => currentSound == null;  // Returns true when object has no sound 
     
-    private bool playerInRange = false;
+    private bool playerInRange = false; 
 
     public GameObject noteIconObject;
     public GameObject emptyIconObject;
@@ -25,34 +25,36 @@ public class PuzzleObject : MonoBehaviour
 
     void Start()
     {
-        AssignSound(startingSound);
-        UpdateIconVisibility(false);
+        AssignSound(startingSound);  //Set puzzle sounds to the scrambled state
+        UpdateIconVisibility(false);  //Hide icons since player is not in range
     }
 
-    public void AssignSound(PuzzleSoundData newSound)
+    public void AssignSound(PuzzleSoundData newSound) //Used when objects sound changes (on awake and when player swaps)
     {
         currentSound = newSound;
 
-        if (newSound != null && newSound.ambientLoop != null)
+        if (newSound != null && newSound.ambientLoop != null)  //Check if there is valid sound and audioclip
         {
-            audioSource.clip = newSound.ambientLoop;
+            audioSource.clip = newSound.ambientLoop;  //Hand audioclip to audiosorce and loop it
             audioSource.loop = true;
             audioSource.Play();
         }
         else
         {
-            audioSource.Stop();
+            audioSource.Stop();  // No sound, sound go .....
             audioSource.clip = null;
         }
         
         Debug.Log($"{objectName} now has sound: {(newSound != null ? newSound.soundName : "EMPTY")}");
     }
     
-    public PuzzleSoundData GetCurrentSound() => currentSound;
+    public PuzzleSoundData GetCurrentSound() => currentSound;  // Other scripts can read what sound 
 
-    void OnTriggerEnter(Collider other)
+    
+    // Below requires: this object has a Collider with "Is Trigger" checked, and one of the two colliders has a Rigidbody.
+    void OnTriggerEnter(Collider other) // Triggers when other collider enters objects trigger collider
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // react if thing entering has "player" tag
         {
             playerInRange = true;
             UpdateIconVisibility(true);
@@ -60,7 +62,7 @@ public class PuzzleObject : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)  // Unity calls this automatically when another collider leaves this object's trigger collider.
     {
         if (other.CompareTag("Player"))
         {
@@ -70,9 +72,9 @@ public class PuzzleObject : MonoBehaviour
         }
     }
     
-    public bool IsPlayerInRange() => playerInRange;
+    public bool IsPlayerInRange() => playerInRange; //Proximity state usefull for other scripts
 
-    private void UpdateIconVisibility(bool inRange)
+    private void UpdateIconVisibility(bool inRange) //Decides which icon should be visibly if any
     {
         if (noteIconObject != null)
             noteIconObject.SetActive(inRange && !IsEmpty);
