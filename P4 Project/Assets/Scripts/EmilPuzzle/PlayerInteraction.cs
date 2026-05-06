@@ -16,7 +16,7 @@ public class PlayerInteraction : MonoBehaviour
          Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition); // Makes ray that starts at camera and goes through mouse cursor position
          if (Physics.Raycast(ray, out RaycastHit hit, maxClickDistance)) //Shoot ray. If hits collider within range, stores info about the hit
          {
-            PuzzleObject obj = hit.collider.GetComponent<PuzzleObject>(); // Check if the thing we hit has a PuzzleObject component on it.
+            PuzzleObject obj = hit.collider.GetComponentInParent<PuzzleObject>(); // Check if the thing we hit has a PuzzleObject component on it.
             if (obj != null) // If yes, tell the PuzzleManager to handle the click.
             {
                PuzzleManager.Instance.OnObjectClicked(obj);

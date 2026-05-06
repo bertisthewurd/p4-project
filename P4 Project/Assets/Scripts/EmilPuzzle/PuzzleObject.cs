@@ -37,13 +37,17 @@ public class PuzzleObject : MonoBehaviour
         {
             audioSource.clip = newSound.ambientLoop;  //Hand audioclip to audiosorce and loop it
             audioSource.loop = true;
-            audioSource.Play();
+            
+            if (playerInRange)
+                audioSource.Play();
         }
         else
         {
             audioSource.Stop();  // No sound, sound go .....
             audioSource.clip = null;
         }
+        
+        UpdateIconVisibility(playerInRange);
         
         Debug.Log($"{objectName} now has sound: {(newSound != null ? newSound.soundName : "EMPTY")}");
     }
@@ -58,6 +62,12 @@ public class PuzzleObject : MonoBehaviour
         {
             playerInRange = true;
             UpdateIconVisibility(true);
+
+            if (currentSound != null && audioSource.clip != null && !audioSource.isPlaying) // Resume audio if there's a sound assigned
+            {
+                audioSource.Play();
+            }
+            
             Debug.Log($"Player entered range of {objectName}");
         }
     }
@@ -68,6 +78,9 @@ public class PuzzleObject : MonoBehaviour
         {
             playerInRange = false;
             UpdateIconVisibility(false);
+            
+            audioSource.Stop();
+            
             Debug.Log($"Player left range of {objectName}");
         }
     }
