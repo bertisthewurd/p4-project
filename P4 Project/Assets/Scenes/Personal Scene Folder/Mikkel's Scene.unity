@@ -561,11 +561,11 @@ MonoBehaviour:
   buttonSpacing: 30
   bottomPadding: 30
   visibleButtonTime:
-  - 2
+  - 10
   - 0
-  - 4
+  - 10
   - 0
-  - 8
+  - 10
   - 0
 --- !u!114 &1471822508
 MonoBehaviour:
