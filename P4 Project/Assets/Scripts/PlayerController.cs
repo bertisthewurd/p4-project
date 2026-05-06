@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         if (rb.linearVelocity.magnitude < topSpeed)
         {
             if (movement != Vector3.zero)
-                rb.AddForce(acceleration * transform.TransformDirection(movement));
+                rb.AddForce(acceleration * transform.TransformDirection(movement), ForceMode.Acceleration);
         }
         
         //Debug.Log("Velocity: " + rb.linearVelocity.magnitude);
