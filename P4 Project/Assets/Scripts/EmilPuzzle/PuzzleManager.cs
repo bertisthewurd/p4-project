@@ -4,6 +4,8 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
 {
     public static PuzzleManager Instance; // Singleton reference
     private PuzzleSoundData carriedSound = null; // The sound the player is currently holding.
+    
+    public CarrySlotUI carrySlotUI;
 
     void Awake()
     {
@@ -18,6 +20,10 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
         PuzzleSoundData objectSounds = obj.GetCurrentSound(); // Remember what sound the object currently has
         obj.AssignSound(carriedSound); // Give the object whatever we were carrying
         carriedSound = objectSounds;  // Carry sound that was on object
+        
+        if (carrySlotUI != null) // Update the on-screen slot to reflect what we're now carrying.
+            carrySlotUI.UpdateDisplay(carriedSound);
+        
         Debug.Log($"Now carrying: {(carriedSound != null ? carriedSound.soundName : "NOTHING")}");
     }
 
