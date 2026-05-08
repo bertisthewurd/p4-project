@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))] // This attribute tells Unity that this script REQUIRES an AudioSource component on the same GameObject.
 public class PuzzleObject : MonoBehaviour
@@ -18,6 +19,7 @@ public class PuzzleObject : MonoBehaviour
 
     public GameObject noteIconObject;
     public GameObject emptyIconObject;
+    public Image noteIconImage;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -45,6 +47,10 @@ public class PuzzleObject : MonoBehaviour
         {
             audioSource.Stop();  // No sound, sound go .....
             audioSource.clip = null;
+        }
+        if (noteIconImage != null && newSound != null && newSound.icon !=null)
+        {
+            noteIconImage.sprite = newSound.icon;
         }
         
         UpdateIconVisibility(playerInRange);

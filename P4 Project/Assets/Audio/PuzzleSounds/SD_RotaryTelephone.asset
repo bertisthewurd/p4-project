@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Telephone
   ambientLoop: {fileID: 8300000, guid: 95a16c5796e20f14cb4d30b2910995c3, type: 3}
+  icon: {fileID: 21300000, guid: f2155e3ab7ae64c4baef009d3d4da06e, type: 3}

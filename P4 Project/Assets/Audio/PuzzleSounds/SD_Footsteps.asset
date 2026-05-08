@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Shoes
   ambientLoop: {fileID: 8300000, guid: 0459cabf17de6974a990e0ecaa4afb58, type: 3}
+  icon: {fileID: 21300000, guid: ad81e8fe98c2f4144987cd526b916402, type: 3}

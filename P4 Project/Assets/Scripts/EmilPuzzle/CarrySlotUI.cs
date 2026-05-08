@@ -7,6 +7,14 @@ public class CarrySlotUI : MonoBehaviour // Shows the note icon when player is c
     
     public void UpdateDisplay(PuzzleSoundData carried) // Called by PuzzleManager whenever the carried sound changes.
     {
-        slotImage.gameObject.SetActive(carried != null); // Show the slot if carrying something, hide it if not.
+        if (carried != null && carried.icon != null)
+        {
+            slotImage.sprite = carried.icon;
+            slotImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            slotImage.gameObject.SetActive(false);
+        }
     }
 }

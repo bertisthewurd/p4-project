@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Typewriter
   ambientLoop: {fileID: 8300000, guid: 10302fd3e32c5214b940b34d4186d1c1, type: 3}
+  icon: {fileID: 21300000, guid: 4990aabb081f69b4caa310161432e23c, type: 3}

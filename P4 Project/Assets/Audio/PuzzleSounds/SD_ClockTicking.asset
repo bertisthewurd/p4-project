@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Clock
   ambientLoop: {fileID: 8300000, guid: 165f4ede4c56aeb4093be3f0f5fe31b9, type: 3}
+  icon: {fileID: 21300000, guid: ea5b0a48467592d4eaf419eadd0ff828, type: 3}
