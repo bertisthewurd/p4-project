@@ -113,10 +113,10 @@ public class PlayerController : MonoBehaviour
         rotation.x += Input.GetAxis("Mouse X");
         rotation.y += Input.GetAxis("Mouse Y");
         rotation.y = Mathf.Clamp(rotation.y, -verticalClamp, verticalClamp);
-        
+
         Quaternion xQuaternion = Quaternion.AngleAxis(rotation.x * Sensitivity, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotation.y * Sensitivity, Vector3.left);
-        
+
         transform.localRotation = xQuaternion;
         head.transform.localRotation = yQuaternion;
     }
