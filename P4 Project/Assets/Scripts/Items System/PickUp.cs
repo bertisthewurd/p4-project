@@ -18,6 +18,9 @@ public class PickUp : Interactable
     private FrameSlot currentSlot;
     public bool IsInSlot => inSlot;
 
+    public event System.Action OnPlacedInSlot;
+    public event System.Action OnFreedFromSlot;
+
     public static bool IsHolding => holding;
 
     public static PickUp CurrentlyHeld =>
@@ -142,6 +145,7 @@ public class PickUp : Interactable
 
         inSlot = true;
         currentSlot = slot;
+        OnPlacedInSlot?.Invoke();
 
         Debug.Log($"Placed {gameObject.name} in {slot.name}");
     }
@@ -160,6 +164,7 @@ public class PickUp : Interactable
 
         inSlot = false;
         currentSlot = null;
+        OnFreedFromSlot?.Invoke();
 
         Debug.Log($"Removed {gameObject.name} from slot");
     }

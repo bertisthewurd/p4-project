@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:P4 Project/Assets/_Recovery/0 (1).unity.meta
 guid: a84979b0c0aeea040be9f58dd6618cc3
+========
+guid: d5b2f580cfd3b0e408e7ea4de66ef0eb
+folderAsset: yes
+>>>>>>>> FMOD-implementation:P4 Project/Assets/Plugins/FMOD/Cache.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
