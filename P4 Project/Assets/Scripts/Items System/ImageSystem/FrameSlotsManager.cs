@@ -74,13 +74,14 @@ public class FrameSlotsManager : MonoBehaviour
             if (slot != null) slot.MarkLocked();
         }
 
-        // Eject all frames in slots > removedFromIndex (left-to-right)
+        // Eject all frames in slots > removedFromIndex (left-to-right).
+        // Only stagger when something actually ejects, so empty slots don't
+        // pad the cascade with silent waits.
         for (int i = removedFromIndex + 1; i < frameSlots.Count; i++)
         {
             FrameSlot slot = frameSlots[i];
-            if (slot == null) continue;
-            if (!slot.IsEmpty)
-                slot.EjectFrame();
+            if (slot == null || slot.IsEmpty) continue;
+            slot.EjectFrame();
             yield return new WaitForSeconds(Mathf.Max(0f, cascadeStagger));
         }
 
@@ -103,12 +104,13 @@ public class FrameSlotsManager : MonoBehaviour
         }
         int frontier = rightmostFilled + 1;
 
-        // Play the lock visual right-to-left. State was already flipped up front,
-        // so call Lock() unconditionally to drive the fade-in animation.
+        // Play the lock visual right-to-left. Skip slots that are already fully
+        // ghosted — Lock() would be a no-op on those, so we shouldn't burn
+        // stagger time waiting for an animation that won't happen.
         for (int i = frameSlots.Count - 1; i > frontier; i--)
         {
             FrameSlot slot = frameSlots[i];
-            if (slot == null) continue;
+            if (slot == null || slot.IsVisuallyLocked) continue;
             slot.Lock();
             yield return new WaitForSeconds(Mathf.Max(0f, cascadeStagger));
         }

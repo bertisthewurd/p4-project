@@ -1,11 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class FramePuzzleAudioController : MonoBehaviour
 {
     [SerializeField] private ImageSystem imageSystem;
     [SerializeField] private FrameSlotsManager slotsManager;
     [SerializeField] private FMODSequentialPlayer sequentialPlayer;
+    [Tooltip("Played as a one-shot when a frame is placed in its correct slot.")]
+    [SerializeField] private EventReference rightImageClickEvent;
+    [Tooltip("Played as a one-shot when a frame is placed in an incorrect slot.")]
+    [SerializeField] private EventReference wrongImageClickEvent;
+    [Tooltip("Played when a shelf transitions from ghost (locked) to normal (unlocked) material.")]
+    [SerializeField] private EventReference ghostShelfWooshEvent;
+    [Tooltip("Played when a shelf transitions from normal (unlocked) to ghost (locked) material.")]
+    [SerializeField] private EventReference ghostShelfWooshBackwardsEvent;
 
     private float _currentEffectLevel = 1f;
     private readonly Dictionary<PickUp, FMODLoopEmitter> _pickUpEmitters = new();
@@ -25,9 +35,26 @@ public class FramePuzzleAudioController : MonoBehaviour
         }
 
         imageSystem.OnIntensityChanged += OnIntensityChanged;
+        imageSystem.OnFrameCorrectlyPlaced += OnFrameCorrectlyPlaced;
+        imageSystem.OnFrameWronglyPlaced += OnFrameWronglyPlaced;
         _currentEffectLevel = imageSystem.CurrentIntensity;
 
-        // Start emitters for frames not currently in a slot
+        foreach (var slot in slotsManager.frameSlots)
+        {
+            if (slot == null) continue;
+            slot.OnUnlockAnimationStarted += OnSlotUnlockAnimationStarted;
+            slot.OnLockAnimationStarted += OnSlotLockAnimationStarted;
+        }
+
+        // Defer initial Play() to allow FMOD banks to finish loading.
+        // Otherwise CreateInstance/start can silently no-op at scene boot.
+        StartCoroutine(StartInitialEmittersDeferred());
+    }
+
+    private IEnumerator StartInitialEmittersDeferred()
+    {
+        yield return null;
+
         foreach (var (pickUp, emitter) in _pickUpEmitters)
         {
             if (pickUp.IsInSlot)
@@ -43,7 +70,44 @@ public class FramePuzzleAudioController : MonoBehaviour
     void OnDestroy()
     {
         if (imageSystem != null)
+        {
             imageSystem.OnIntensityChanged -= OnIntensityChanged;
+            imageSystem.OnFrameCorrectlyPlaced -= OnFrameCorrectlyPlaced;
+            imageSystem.OnFrameWronglyPlaced -= OnFrameWronglyPlaced;
+        }
+        if (slotsManager != null)
+        {
+            foreach (var slot in slotsManager.frameSlots)
+            {
+                if (slot == null) continue;
+                slot.OnUnlockAnimationStarted -= OnSlotUnlockAnimationStarted;
+                slot.OnLockAnimationStarted -= OnSlotLockAnimationStarted;
+            }
+        }
+    }
+
+    private void OnFrameCorrectlyPlaced(FrameSlot slot)
+    {
+        if (rightImageClickEvent.IsNull || slot == null) return;
+        RuntimeManager.PlayOneShot(rightImageClickEvent, slot.transform.position);
+    }
+
+    private void OnFrameWronglyPlaced(FrameSlot slot)
+    {
+        if (wrongImageClickEvent.IsNull || slot == null) return;
+        RuntimeManager.PlayOneShot(wrongImageClickEvent, slot.transform.position);
+    }
+
+    private void OnSlotUnlockAnimationStarted(FrameSlot slot)
+    {
+        if (ghostShelfWooshEvent.IsNull || slot == null) return;
+        RuntimeManager.PlayOneShot(ghostShelfWooshEvent, slot.transform.position);
+    }
+
+    private void OnSlotLockAnimationStarted(FrameSlot slot)
+    {
+        if (ghostShelfWooshBackwardsEvent.IsNull || slot == null) return;
+        RuntimeManager.PlayOneShot(ghostShelfWooshBackwardsEvent, slot.transform.position);
     }
 
     // Called by a UI Button's OnClick event.
