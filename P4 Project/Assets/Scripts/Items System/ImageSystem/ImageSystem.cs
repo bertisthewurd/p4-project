@@ -22,6 +22,10 @@ public class ImageSystem : MonoBehaviour
     private float _currentIntensity = 1f;
     private float _smoothVelocity   = 0f;
 
+    public event System.Action<float> OnIntensityChanged;
+    public float CurrentIntensity => ApplyCurve(_currentIntensity);
+    public bool IsSolved => Mathf.Approximately(_targetIntensity, 0f);
+
     void Start()
     {
         foreach (var mapping in mappings)
@@ -34,7 +38,7 @@ public class ImageSystem : MonoBehaviour
 
         RecountAndUpdateTarget();
         _currentIntensity = _targetIntensity;
-        frameSystem?.SetEffectIntensity(ApplyCurve(_currentIntensity));
+        if (frameSystem != null) frameSystem.SetEffectIntensity(ApplyCurve(_currentIntensity));
     }
 
     void Update()
@@ -43,7 +47,9 @@ public class ImageSystem : MonoBehaviour
 
         _currentIntensity = Mathf.SmoothDamp(_currentIntensity, _targetIntensity,
                                               ref _smoothVelocity, transitionSmoothTime);
-        frameSystem?.SetEffectIntensity(ApplyCurve(_currentIntensity));
+        float curved = ApplyCurve(_currentIntensity);
+        if (frameSystem != null) frameSystem.SetEffectIntensity(curved);
+        OnIntensityChanged?.Invoke(curved);
     }
 
     private float ApplyCurve(float t) => Mathf.Pow(t, 1f / intensityExponent);
