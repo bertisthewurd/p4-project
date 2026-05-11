@@ -29,6 +29,13 @@ public class SceneSelector : SceneManager
     private bool sceneWasSelected = false;
     private bool isChoosingScene = false;
 
+    [Header("Time Bar Settings")] 
+    public GameObject timeBar;
+    public RectTransform barTransform;
+    
+    private bool expandBar = false;
+    private float barProgress;
+    
     void Awake()
     {
         AssignSequenceStructure();
@@ -38,6 +45,20 @@ public class SceneSelector : SceneManager
     void Start()
     {
         PlaySequences();
+    }
+
+    void Update()
+    {
+        if (expandBar)
+        {
+            //The 8 is the size of the background
+            barProgress += Time.deltaTime / buttonsAppearBeforeEnd * 8;
+            barTransform.localScale = new Vector3(barProgress, barTransform.localScale.y, barTransform.localScale.z);
+        }
+        else
+        {
+            barProgress = 0;
+        }
     }
 
     public void PlaySequences()
@@ -100,6 +121,9 @@ public class SceneSelector : SceneManager
             yield return new WaitForSeconds(timeUntilButtons);
             ShowSelectionButtons(currentSequence + 1);
             yield return new WaitForSeconds(buttonsAppearBeforeEnd);
+            
+            timeBar.gameObject.SetActive(false);
+            expandBar = false;
 
             if (!sceneWasSelected)
             {
@@ -144,6 +168,10 @@ public class SceneSelector : SceneManager
 
         int sceneCount = sceneMatrix[sequenceIndex].Length;
 
+        //Enabling Timer Bar here
+        timeBar.gameObject.SetActive(true);
+        expandBar = true;
+        
         for (int i = 0; i < sceneCount; i++)
         {
             int capturedIndex = i;
