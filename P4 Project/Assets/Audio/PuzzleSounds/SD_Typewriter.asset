@@ -15,3 +15,17 @@ MonoBehaviour:
   soundName: Typewriter
   ambientLoop: {fileID: 8300000, guid: 10302fd3e32c5214b940b34d4186d1c1, type: 3}
   icon: {fileID: 21300000, guid: 4990aabb081f69b4caa310161432e23c, type: 3}
+  ambientLoopEvent:
+    Guid:
+      Data1: -2036587681
+      Data2: 1307791415
+      Data3: -742517064
+      Data4: -650178761
+    Path: event:/EmilPuzzle/Typewriter
+  winSoundbiteEvent:
+    Guid:
+      Data1: 1034238956
+      Data2: 1268545115
+      Data3: 933188786
+      Data4: 1763750816
+    Path: event:/EmilPuzzle/VL_Typewriter

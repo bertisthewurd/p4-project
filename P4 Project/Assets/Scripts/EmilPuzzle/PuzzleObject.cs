@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
+using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-[RequireComponent(typeof(AudioSource))] // This attribute tells Unity that this script REQUIRES an AudioSource component on the same GameObject.
-public class PuzzleObject : Interactable  // Inherit from Interactable so the team's PlayerInteract handles input for us
+public class PuzzleObject : Interactable  // Inherit from Interactable so PlayerInteract handles input for us
 {
 
     public string objectName;  // "Shoes", "Typewriter", etc.
     public PuzzleSoundData correctSound;   // Refference to PuzzleSoundData asset that should be attached to the object when puzzle is solved 
     public PuzzleSoundData startingSound;  // Refference to PuzzleSoundData asset on the object at the start (the scrambled one)
     
-    private AudioSource audioSource;  //Audiosource component
     private PuzzleSoundData currentSound;  // Sound currently assigned to the object
+    private EventInstance ambientEventInstance; // FMOD event instance for looping event
 
     public bool IsCorrect => currentSound == correctSound;  //Returns true if currentSound is the right one
     public bool IsEmpty => currentSound == null;  // Returns true when object has no sound 
@@ -22,10 +24,6 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
     public GameObject noteIconObject;
     public GameObject emptyIconObject;
     public Image noteIconImage;
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     void Start()
     {
@@ -47,19 +45,19 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
         
         currentSound = newSound;
 
-        if (newSound != null && newSound.ambientLoop != null)  //Check if there is valid sound and audioclip
+        StopAmbient();
+
+        if (newSound != null && !newSound.ambientLoopEvent.IsNull)  //Check if there is valid sound and audioclip
         {
-            audioSource.clip = newSound.ambientLoop;  //Hand audioclip to audiosorce and loop it
-            audioSource.loop = true;
+            //Create new FMOD instance for the new sound
+            ambientEventInstance = RuntimeManager.CreateInstance(newSound.ambientLoopEvent);
+            RuntimeManager.AttachInstanceToGameObject(ambientEventInstance, transform);
             
+            // Only start playing if player is currently in range
             if (playerInRange)
-                audioSource.Play();
+                ambientEventInstance.start();
         }
-        else
-        {
-            audioSource.Stop();  // No sound, sound go .....
-            audioSource.clip = null;
-        }
+        
         if (noteIconImage != null && newSound != null && newSound.icon !=null)  //Update world-space icon to match the current sound
         {
             noteIconImage.sprite = newSound.icon;
@@ -83,10 +81,8 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
         
         isLocked = true;
         promptMessage = "";  // No prompt for locked objects
-        
-        // Stop the ambient looping sound
-        audioSource.Stop();
-        audioSource.clip = null;
+
+        StopAmbient(); 
         
         // Hide both icons - this object is done
         if (noteIconObject != null) noteIconObject.SetActive(false);
@@ -99,12 +95,22 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
         PuzzleManager.Instance.OnObjectSolved(this);
     }
     
-    // Stub: tomorrow this will trigger the FMOD voiceline event for this object
+    // Plays the voiceline via FMOD when this object is correctly placed
     private void PlayWinSoundbite()
     {
-        Debug.Log($"[STUB] Would play voiceline for {objectName}");
-        // TODO: Replace with FMOD event call once voicelines are integrated
-        // Example: FMODUnity.RuntimeManager.PlayOneShotAttached(winSoundbiteEvent, gameObject);
+        if (currentSound != null && !currentSound.winSoundbiteEvent.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(currentSound.winSoundbiteEvent, gameObject);
+        }
+    }
+
+    private void StopAmbient()
+    {
+        if (ambientEventInstance.isValid())
+        {
+            ambientEventInstance.stop(STOP_MODE.IMMEDIATE);
+            ambientEventInstance.release();
+        }
     }
     
     public PuzzleSoundData GetCurrentSound() => currentSound;  // Other scripts can read what sound 
@@ -118,11 +124,11 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
             playerInRange = true;
             UpdateIconVisibility(true);
 
-            if (currentSound != null && audioSource.clip != null && !audioSource.isPlaying) // Resume audio if there's a sound assigned
+            // Start the ambient sound when player enters
+            if (ambientEventInstance.isValid())
             {
-                audioSource.Play();
+                ambientEventInstance.start();
             }
-            
             Debug.Log($"Player entered range of {objectName}");
         }
     }
@@ -134,13 +140,22 @@ public class PuzzleObject : Interactable  // Inherit from Interactable so the te
             playerInRange = false;
             UpdateIconVisibility(false);
             
-            audioSource.Stop();
-            
+            // Stop the ambient sound when player leaves
+            if (ambientEventInstance.isValid())
+            {
+                ambientEventInstance.stop(STOP_MODE.IMMEDIATE);
+            }
             Debug.Log($"Player left range of {objectName}");
         }
     }
+
+    void OnDestroy() //Cleanup when object is destroyed
+    {
+        StopAmbient();
+    }
     
     public bool IsPlayerInRange() => playerInRange; //Proximity state usefull for other scripts
+    public bool IsLocked => isLocked;
 
     private void UpdateIconVisibility(bool inRange)
     {

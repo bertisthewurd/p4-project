@@ -1,4 +1,6 @@
 using UnityEngine;
+using FMOD.Studio;
+using FMODUnity;
 
 public class PuzzleManager : MonoBehaviour //Handles swap logic and when object is clicked
 {
@@ -15,7 +17,26 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
         if (Instance != null && Instance != this) Destroy(gameObject);  // If another PuzzleManager already exists, destroy the duplicate.
         else Instance = this;
     }
-    
+
+    // Play the currently carried sound
+    public void PlayCarriedPreview()
+    {
+        if (carriedSound == null || carriedSound.ambientLoopEvent.IsNull) return;
+
+        EventInstance previewInstance = RuntimeManager.CreateInstance(carriedSound.ambientLoopEvent);
+        previewInstance.start();
+
+        // stop after designated amount of time
+        StartCoroutine(StopPreviewAfterDelay(previewInstance, 2f));
+    }
+
+    private System.Collections.IEnumerator StopPreviewAfterDelay(EventInstance preview, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        preview.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        preview.release();
+    }
+
     // Called by PlayerInteraction script when the player clicks a puzzle object.
     // Performs the swap: object's current sound goes to player, player's carried sound goes to object
     public void OnObjectClicked(PuzzleObject obj)  

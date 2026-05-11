@@ -15,3 +15,17 @@ MonoBehaviour:
   soundName: Shoes
   ambientLoop: {fileID: 8300000, guid: 0459cabf17de6974a990e0ecaa4afb58, type: 3}
   icon: {fileID: 21300000, guid: ad81e8fe98c2f4144987cd526b916402, type: 3}
+  ambientLoopEvent:
+    Guid:
+      Data1: -1725923528
+      Data2: 1325536957
+      Data3: -1392862574
+      Data4: -37099610
+    Path: event:/EmilPuzzle/Footsteps
+  winSoundbiteEvent:
+    Guid:
+      Data1: 270330005
+      Data2: 1137432972
+      Data3: -1099368014
+      Data4: -290883229
+    Path: event:/EmilPuzzle/VL_Footsteps

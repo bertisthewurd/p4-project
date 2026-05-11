@@ -15,3 +15,17 @@ MonoBehaviour:
   soundName: Handcuffs
   ambientLoop: {fileID: 8300000, guid: 9c9abc7620263af4eaaa2e49d5fc2b27, type: 3}
   icon: {fileID: 21300000, guid: e772637c972103f46a21f3f015f879c2, type: 3}
+  ambientLoopEvent:
+    Guid:
+      Data1: -215619873
+      Data2: 1300069136
+      Data3: -1061573500
+      Data4: -1242183633
+    Path: event:/EmilPuzzle/Handcuffs
+  winSoundbiteEvent:
+    Guid:
+      Data1: 1548552817
+      Data2: 1126334867
+      Data3: 1688623762
+      Data4: 1785388281
+    Path: event:/EmilPuzzle/VL_Handcuffs
