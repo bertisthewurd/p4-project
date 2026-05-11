@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class PortalTeleporter : MonoBehaviour
 {
-
     public PortalTeleporter otherTeleport;
+    private bool hasTeleported = false;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        hasTeleported = false; // Reset when entering the trigger
+    }
 
     private void OnTriggerStay(Collider other)
     {
