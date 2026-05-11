@@ -6,6 +6,9 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
     private PuzzleSoundData carriedSound = null; // The sound the player is currently holding.
     
     public CarrySlotUI carrySlotUI;
+    
+    private int solvedCount = 0;
+    public int totalObjects = 7;
 
     void Awake()
     {
@@ -25,6 +28,25 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
             carrySlotUI.UpdateDisplay(carriedSound);
         
         Debug.Log($"Now carrying: {(carriedSound != null ? carriedSound.soundName : "NOTHING")}");
+    }
+
+    // Called by PuzzleObject when it transitions to correct
+    public void OnObjectSolved(PuzzleObject obj)
+    {
+        solvedCount++;
+        Debug.Log($"Solved {solvedCount}/{totalObjects}: {obj.name}");
+        
+        if (solvedCount >= totalObjects)
+        {
+            OnPuzzleComplete();
+        }
+    }
+    
+    // Called when all 7 objects are correctly placed
+    private void OnPuzzleComplete()
+    {
+        Debug.Log("PUZZLE COMPLETE!");
+        // Tomorrow: trigger final memory reveal sequence here
     }
 
     public PuzzleSoundData GetCarriedSound() => carriedSound;

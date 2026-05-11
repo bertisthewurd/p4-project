@@ -14,4 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Keys
   ambientLoop: {fileID: 8300000, guid: d02f2e58c6e0c0a468023bdaaaea73a7, type: 3}
-  icon: {fileID: 21300000, guid: 4990aabb081f69b4caa310161432e23c, type: 3}
+  icon: {fileID: 21300000, guid: 0462cfcee96b0b64db13c4e2b4693b8c, type: 3}
+  ambientLoopEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  winSoundbiteEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
