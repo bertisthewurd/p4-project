@@ -28,16 +28,6 @@ public class WinCon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DEBUG stuff lmao
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            PlayEmilWin();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {  
-            PlayMikkelWin();
-        }
 
         if (fadeScreen)
         {
@@ -74,7 +64,7 @@ public class WinCon : MonoBehaviour
     private IEnumerator PlayGameWin()
     {
         fadeScreen = true;
-        yield return new WaitForSeconds(quitTime);
+        yield return new WaitForSeconds(screenFadeTime + quitTime);
         Application.Quit();
     }
 }
