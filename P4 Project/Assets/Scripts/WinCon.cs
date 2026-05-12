@@ -40,8 +40,9 @@ public class WinCon : MonoBehaviour
         }
     }
 
-    void PlayEmilWin()
+    public void PlayEmilWin()
     {
+        Debug.Log("Win Con says: Emil Done");
         audioSource.PlayOneShot(emilWin);
         if (onePuzzleDone)
         {
@@ -53,8 +54,9 @@ public class WinCon : MonoBehaviour
         }
     }
 
-    void PlayMikkelWin()
+    public void PlayMikkelWin()
     {
+        Debug.Log("Win Con says: Mikkel Done");
         audioSource.PlayOneShot(mikkelWin);
         if (onePuzzleDone)
         {

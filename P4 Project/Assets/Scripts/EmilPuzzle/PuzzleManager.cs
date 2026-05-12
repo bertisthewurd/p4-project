@@ -6,6 +6,7 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
 {
     public static PuzzleManager Instance; // Singleton reference
     private PuzzleSoundData carriedSound = null; // The sound the player is currently holding.
+    private WinCon winConManager;
     
     public CarrySlotUI carrySlotUI;
     
@@ -16,6 +17,8 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
     {
         if (Instance != null && Instance != this) Destroy(gameObject);  // If another PuzzleManager already exists, destroy the duplicate.
         else Instance = this;
+
+        winConManager = GameObject.Find("Win Con Manager").GetComponent<WinCon>();
     }
 
     // Play the currently carried sound
@@ -71,6 +74,7 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
     {
         Debug.Log("PUZZLE COMPLETE!");
         // Tomorrow: trigger final memory reveal sequence here
+        winConManager.PlayEmilWin();
     }
 
     public PuzzleSoundData GetCarriedSound() => carriedSound;
