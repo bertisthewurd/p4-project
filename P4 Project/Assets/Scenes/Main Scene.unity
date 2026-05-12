@@ -17208,6 +17208,50 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &612729909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612729884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbe3add524a942a5aebc60c606b9ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFootsteps
+  walkFootstepEvent:
+    Guid:
+      Data1: 1414126544
+      Data2: 1226086875
+      Data3: -159003467
+      Data4: -31993687
+    Path: event:/SFX/FootstepWalk
+  sprintFootstepEvent:
+    Guid:
+      Data1: 1672229343
+      Data2: 1114062933
+      Data3: -1766555245
+      Data4: 111336270
+    Path: event:/SFX/FootstepSprint
+  jumpEvent:
+    Guid:
+      Data1: 1777853000
+      Data2: 1170457655
+      Data3: -1863929178
+      Data4: -385991672
+    Path: event:/SFX/Jump
+  landingEvent:
+    Guid:
+      Data1: 614778146
+      Data2: 1122640977
+      Data3: 128402861
+      Data4: -1787532094
+    Path: event:/SFX/Land
+  walkStepInterval: 0.5
+  sprintStepInterval: 0.3
+  sprintKey: 304
+  jumpKey: 0
 --- !u!4 &613865877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6495630340161587805, guid: 0758d192278633543ad832e7ee2f264f, type: 3}
@@ -19704,6 +19748,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9028957243497241425, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       insertIndex: -1
       addedObject: {fileID: 612729908}
+    - targetCorrespondingSourceObject: {fileID: 9028957243497241425, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 612729909}
   m_SourcePrefab: {fileID: 100100000, guid: 34f00a0970afad04e856301c46989f03, type: 3}
 --- !u!1001 &770187672
 PrefabInstance:
