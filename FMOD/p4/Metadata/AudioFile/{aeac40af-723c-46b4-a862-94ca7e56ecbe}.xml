@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{aeac40af-723c-46b4-a862-94ca7e56ecbe}">
 		<property name="assetPath">
-			<value>Handcuffs.wav</value>
+			<value>EmilPuzzleSounds/Handcuffs.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

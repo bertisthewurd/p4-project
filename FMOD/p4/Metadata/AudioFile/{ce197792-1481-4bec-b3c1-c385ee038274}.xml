@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{ce197792-1481-4bec-b3c1-c385ee038274}">
 		<property name="assetPath">
-			<value>Footsteps (green).wav</value>
+			<value>EmilPuzzleSounds/Footsteps (green).wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>96</value>

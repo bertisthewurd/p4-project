@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{3303b208-9284-4a9e-aff6-0ec46f4d42c7}">
 		<property name="assetPath">
-			<value>Footsteps.wav</value>
+			<value>EmilPuzzleSounds/Footsteps.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{97fffd02-27e1-49a8-ad81-d9a483c849c8}">
 		<property name="assetPath">
-			<value>Keys.wav</value>
+			<value>EmilPuzzleSounds/Keys.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
