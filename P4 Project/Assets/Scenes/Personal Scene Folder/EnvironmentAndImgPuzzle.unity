@@ -9706,24 +9706,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
-      propertyPath: storyRevealEvent.Path
-      value: event:/06. Mikkel puzzle solved
-      objectReference: {fileID: 0}
+      propertyPath: playerListener
+      value: 
+      objectReference: {fileID: 1491010100}
     - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
-      propertyPath: storyRevealEvent.Guid.Data1
-      value: -1113345760
-      objectReference: {fileID: 0}
-    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
-      propertyPath: storyRevealEvent.Guid.Data2
-      value: 1212000427
-      objectReference: {fileID: 0}
-    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
-      propertyPath: storyRevealEvent.Guid.Data3
-      value: -950162798
-      objectReference: {fileID: 0}
-    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
-      propertyPath: storyRevealEvent.Guid.Data4
-      value: -1146108116
+      propertyPath: sequenceVolume
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 3201925412149568064, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
       propertyPath: m_Name
@@ -15254,66 +15242,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4184875029496670, guid: ec2a6eb55d6bac64f8e60e43c3cb20ad, type: 3}
   m_PrefabInstance: {fileID: 1152262832}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &503516183
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      propertyPath: m_Name
-      value: PlayButton
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 513576686}
-  m_SourcePrefab: {fileID: 100100000, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
 --- !u!1001 &503828043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15375,30 +15303,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eba6e825e1b0ba4db1d042de5c08e44, type: 3}
---- !u!1 &513576683 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
-  m_PrefabInstance: {fileID: 503516183}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &513576686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513576683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf0edc834f3ff3544a6b3f8609f698e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayButton
-  promptMessage: 
-  audioController: {fileID: 312991719}
-  sequentialPlayer: {fileID: 312991718}
-  pressOffset: {x: 0, y: 0, z: -0.05}
-  pressDuration: 0.08
-  releaseDuration: 0.15
-  idlePrompt: PRESS E TO PLAY
 --- !u!4 &513984481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5789218865728115529, guid: b4fe6847423ae9f438e6635ee9d01172, type: 3}
@@ -28590,6 +28494,10 @@ PrefabInstance:
       propertyPath: promptText
       value: 
       objectReference: {fileID: 218624075}
+    - target: {fileID: 5902253634536857127, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9028957243497241425, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_Name
       value: Player
@@ -29361,7 +29269,7 @@ Transform:
   m_GameObject: {fileID: 862080744}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10011.44, y: 2.04626, z: 22.87}
+  m_LocalPosition: {x: -10026.39, y: 8.24, z: 22.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41128,46 +41036,6 @@ PrefabInstance:
       propertyPath: holdPoint
       value: 
       objectReference: {fileID: 255292413}
-    - target: {fileID: 3557928377161499474, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Path
-      value: event:/05 My Daughter
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557928377161499474, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data1
-      value: -187420931
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557928377161499474, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data2
-      value: 1178977761
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557928377161499474, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data3
-      value: 1921506441
-      objectReference: {fileID: 0}
-    - target: {fileID: 3557928377161499474, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data4
-      value: -1417188671
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006257018562622696, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Path
-      value: event:/02 I became a disloyal
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006257018562622696, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data1
-      value: 1523983582
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006257018562622696, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data2
-      value: 1330092811
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006257018562622696, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data3
-      value: 560584871
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006257018562622696, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data4
-      value: -949967416
-      objectReference: {fileID: 0}
     - target: {fileID: 6751930105208922157, guid: 6077f23df235bf649b37525a48e92009, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.23
@@ -41208,6 +41076,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7445865340623050977, guid: 6077f23df235bf649b37525a48e92009, type: 3}
+      propertyPath: audioController
+      value: 
+      objectReference: {fileID: 312991719}
+    - target: {fileID: 7445865340623050977, guid: 6077f23df235bf649b37525a48e92009, type: 3}
+      propertyPath: sequentialPlayer
+      value: 
+      objectReference: {fileID: 312991718}
     - target: {fileID: 7769591909459459817, guid: 6077f23df235bf649b37525a48e92009, type: 3}
       propertyPath: m_Name
       value: ImageSystem
@@ -41216,66 +41092,6 @@ PrefabInstance:
       propertyPath: holdPoint
       value: 
       objectReference: {fileID: 255292413}
-    - target: {fileID: 8006618787817825530, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Path
-      value: event:/03 I was Planted
-      objectReference: {fileID: 0}
-    - target: {fileID: 8006618787817825530, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data1
-      value: 348977681
-      objectReference: {fileID: 0}
-    - target: {fileID: 8006618787817825530, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data2
-      value: 1128986305
-      objectReference: {fileID: 0}
-    - target: {fileID: 8006618787817825530, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data3
-      value: 1989937798
-      objectReference: {fileID: 0}
-    - target: {fileID: 8006618787817825530, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data4
-      value: -1913385208
-      objectReference: {fileID: 0}
-    - target: {fileID: 8030644034547533747, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Path
-      value: event:/04 But I got caught
-      objectReference: {fileID: 0}
-    - target: {fileID: 8030644034547533747, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data1
-      value: -571019288
-      objectReference: {fileID: 0}
-    - target: {fileID: 8030644034547533747, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data2
-      value: 1295883218
-      objectReference: {fileID: 0}
-    - target: {fileID: 8030644034547533747, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data3
-      value: 1208246675
-      objectReference: {fileID: 0}
-    - target: {fileID: 8030644034547533747, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data4
-      value: 1996556544
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144252936540924725, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Path
-      value: event:/01 I had a family
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144252936540924725, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data1
-      value: -1124724045
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144252936540924725, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data2
-      value: 1075426710
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144252936540924725, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data3
-      value: 1258429615
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144252936540924725, guid: 6077f23df235bf649b37525a48e92009, type: 3}
-      propertyPath: eventRef.Guid.Data4
-      value: 84032633
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -46777,6 +46593,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8654351829649648156, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
   m_PrefabInstance: {fileID: 406052472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1491010100 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3416719341122348141, guid: 34f00a0970afad04e856301c46989f03, type: 3}
+  m_PrefabInstance: {fileID: 848497615}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1493125439
 PrefabInstance:
@@ -69596,5 +69417,4 @@ SceneRoots:
   - {fileID: 848497615}
   - {fileID: 322524321}
   - {fileID: 1334145875}
-  - {fileID: 503516183}
   - {fileID: 312991717}
