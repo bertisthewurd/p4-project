@@ -7,26 +7,31 @@ public class PortalTeleporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        hasTeleported = false; // Reset when entering the trigger
+        hasTeleported = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (hasTeleported) return;
+
         PickUp held = PickUp.CurrentlyHeld;
-        // Held object teleports together with the player — skip its independent
-        // trigger. The frame's collider lives on a child, so walk up the parents.
         if (held != null && other.GetComponentInParent<PickUp>() == held) return;
 
-        // Resolve to the Rigidbody root so we move the whole body, not a child
-        // collider that would desync from its parent transform.
-        Transform target = other.attachedRigidbody != null
-            ? other.attachedRigidbody.transform
-            : other.transform;
+        // Resolve root transform — CharacterController has no Rigidbody,
+        // so walk up to find CC or fall back to Rigidbody root.
+        CharacterController cc = other.GetComponentInParent<CharacterController>();
+        Rigidbody rb = other.attachedRigidbody;
+
+        Transform target = cc != null ? cc.transform
+                         : rb != null ? rb.transform
+                         : other.transform;
 
         float zPosition = transform.worldToLocalMatrix.MultiplyPoint3x4(target.position).z;
         if (zPosition >= 0) return;
 
-        Teleport(target);
+        hasTeleported = true;
+
+        TeleportCharacterOrRigidbody(target, cc, rb);
 
         if (held != null)
         {
@@ -40,27 +45,52 @@ public class PortalTeleporter : MonoBehaviour
         }
     }
 
+    private void TeleportCharacterOrRigidbody(Transform target, CharacterController cc, Rigidbody rb)
+    {
+        Vector3 localPos = transform.worldToLocalMatrix.MultiplyPoint3x4(target.position);
+        localPos = new Vector3(-localPos.x, localPos.y, -localPos.z);
+        Vector3 newPosition = otherTeleport.transform.localToWorldMatrix.MultiplyPoint3x4(localPos);
+
+        Quaternion difference = otherTeleport.transform.rotation
+                              * Quaternion.Inverse(transform.rotation * Quaternion.Euler(0, 180, 0));
+        Quaternion newRotation = difference * target.rotation;
+
+        if (cc != null)
+        {
+            // Must disable CC to move it — otherwise Unity snaps it back.
+            cc.enabled = false;
+            target.SetPositionAndRotation(newPosition, newRotation);
+            cc.enabled = true;
+
+            // Rotate the player's velocity if you're tracking it externally.
+            // If your movement script exposes a velocity field, rotate it here:
+            // myMovement.velocity = difference * myMovement.velocity;
+        }
+        else
+        {
+            Teleport(target); // existing Rigidbody path
+        }
+    }
+
     private void Teleport(Transform objectToTeleport)
     {
-        Vector3 localPosition = transform.worldToLocalMatrix.MultiplyPoint3x4(objectToTeleport.position);
-        localPosition = new Vector3(-localPosition.x, localPosition.y, -localPosition.z);
-        Vector3 newPosition = otherTeleport.transform.localToWorldMatrix.MultiplyPoint3x4(localPosition);
+        Vector3 localPos = transform.worldToLocalMatrix.MultiplyPoint3x4(objectToTeleport.position);
+        localPos = new Vector3(-localPos.x, localPos.y, -localPos.z);
+        Vector3 newPosition = otherTeleport.transform.localToWorldMatrix.MultiplyPoint3x4(localPos);
 
-        Quaternion diffrence = otherTeleport.transform.rotation * Quaternion.Inverse(transform.rotation * Quaternion.Euler(0, 180, 0));
-        Quaternion newRotation = diffrence * objectToTeleport.rotation;
+        Quaternion difference = otherTeleport.transform.rotation
+                              * Quaternion.Inverse(transform.rotation * Quaternion.Euler(0, 180, 0));
+        Quaternion newRotation = difference * objectToTeleport.rotation;
 
-        // Sync Rigidbody state so the next FixedUpdate reads the new pose;
-        // rotating velocity preserves momentum through the portal so the player
-        // doesn't drag back in along their old direction.
         Rigidbody rb = objectToTeleport.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.position = newPosition;
             rb.rotation = newRotation;
-            rb.linearVelocity = diffrence * rb.linearVelocity;
-            rb.angularVelocity = diffrence * rb.angularVelocity;
+            rb.linearVelocity = difference * rb.linearVelocity;
+            rb.angularVelocity = difference * rb.angularVelocity;
         }
+
         objectToTeleport.SetPositionAndRotation(newPosition, newRotation);
     }
-
 }
