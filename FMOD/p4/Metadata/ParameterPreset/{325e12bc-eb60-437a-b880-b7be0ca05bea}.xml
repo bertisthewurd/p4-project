@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{325e12bc-eb60-437a-b880-b7be0ca05bea}">
+		<property name="name">
+			<value>EffectLevel</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e62dcbdd-e74e-433c-b4de-73cbc10896f0}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{f489c7a1-9c11-40bc-b889-757b57b3f73f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{f489c7a1-9c11-40bc-b889-757b57b3f73f}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

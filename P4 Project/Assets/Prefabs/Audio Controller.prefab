@@ -48,6 +48,34 @@ MonoBehaviour:
   imageSystem: {fileID: 0}
   slotsManager: {fileID: 0}
   sequentialPlayer: {fileID: 3167249906617017876}
+  rightImageClickEvent:
+    Guid:
+      Data1: -1788582946
+      Data2: 1299704317
+      Data3: 224789893
+      Data4: 990172674
+    Path: event:/RightImgClick
+  wrongImageClickEvent:
+    Guid:
+      Data1: 602835969
+      Data2: 1164623241
+      Data3: -2091341142
+      Data4: -1228149403
+    Path: event:/WrongImgClick
+  ghostShelfWooshEvent:
+    Guid:
+      Data1: 957827427
+      Data2: 1271605137
+      Data3: 545607065
+      Data4: -196465917
+    Path: event:/GhostShelfWoosh
+  ghostShelfWooshBackwardsEvent:
+    Guid:
+      Data1: -920055546
+      Data2: 1264827958
+      Data3: 730583985
+      Data4: -141763757
+    Path: event:/GhostShelfWooshBackwards
 --- !u!114 &3167249906617017876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,11 +88,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86633da037fee53418a2661c4b3264f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FMODSequentialPlayer
-  clipDuration: 4
+  crossfadeDuration: 0.5
+  fallbackClipLength: 4
   storyRevealEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1113345760
+      Data2: 1212000427
+      Data3: -950162798
+      Data4: -1146108116
+    Path: event:/06. Mikkel puzzle solved
+  playerListener: {fileID: 0}
+  sequenceVolume: 1.5

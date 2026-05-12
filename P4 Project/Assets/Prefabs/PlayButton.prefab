@@ -49,9 +49,9 @@ MonoBehaviour:
   promptMessage: PRESS E TO PLAY
   audioController: {fileID: 0}
   sequentialPlayer: {fileID: 0}
-  pressOffset: {x: 0, y: 0, z: 1}
-  pressDuration: 0.25
-  releaseDuration: 0.35
+  pressOffset: {x: 0.2, y: 0, z: 0}
+  pressDuration: 0.08
+  releaseDuration: 0.15
   idlePrompt: PRESS E TO PLAY
 --- !u!1001 &6754424328584257310
 PrefabInstance:

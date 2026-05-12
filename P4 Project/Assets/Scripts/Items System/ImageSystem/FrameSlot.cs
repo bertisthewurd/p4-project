@@ -42,10 +42,19 @@ public class FrameSlot : Interactable
     public bool IsEmpty => heldFrame == null;
     public PickUp HeldFrame => heldFrame;
     public bool IsLocked { get; private set; }
+    // True when the ghost material is fully applied at transparency 0 — i.e. Lock()
+    // would be a no-op and trigger no visible animation.
+    public bool IsVisuallyLocked =>
+        _ghostInstance != null &&
+        lockTargetRenderer != null &&
+        IsGhostApplied() &&
+        Mathf.Approximately(_ghostInstance.GetFloat(_transparencyId), 0f);
 
     public event System.Action<FrameSlot> OnFramePlaced;
     public event System.Action<FrameSlot> OnFrameRemoved;
     public event System.Action<FrameSlot> OnFrameEjected;
+    public event System.Action<FrameSlot> OnUnlockAnimationStarted;
+    public event System.Action<FrameSlot> OnLockAnimationStarted;
 
     void Awake()
     {
@@ -115,6 +124,7 @@ public class FrameSlot : Interactable
                 current.PlaceInSlot(this);
                 heldFrame = current;
                 oldFrame.PickUpIntoHand();
+                OnFramePlaced?.Invoke(this);
             }
             else
             {
@@ -168,6 +178,12 @@ public class FrameSlot : Interactable
         promptMessage = "";
         if (_ghostInstance == null || lockTargetRenderer == null) return;
 
+        // Already fully locked visually — skip the animation and event so cascade
+        // relocks don't fire the lock audio once per slot for slots that are
+        // already in the ghost state.
+        if (IsGhostApplied() && Mathf.Approximately(_ghostInstance.GetFloat(_transparencyId), 0f))
+            return;
+
         if (_visualRoutine != null) StopCoroutine(_visualRoutine);
 
         if (!IsGhostApplied())
@@ -176,6 +192,7 @@ public class FrameSlot : Interactable
             ApplyGhostMaterial();
         }
         float from = _ghostInstance.GetFloat(_transparencyId);
+        OnLockAnimationStarted?.Invoke(this);
         _visualRoutine = StartCoroutine(AnimateTransparency(from, 0f, lockFadeDuration, restoreAtEnd: false));
     }
 
@@ -189,6 +206,7 @@ public class FrameSlot : Interactable
         }
         if (_visualRoutine != null) StopCoroutine(_visualRoutine);
         float from = _ghostInstance.GetFloat(_transparencyId);
+        OnUnlockAnimationStarted?.Invoke(this);
         _visualRoutine = StartCoroutine(AnimateTransparency(from, 1f, unlockFadeDuration, restoreAtEnd: true, unlockAtEnd: true));
     }
 

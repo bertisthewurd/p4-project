@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5983451035315945911}
   - component: {fileID: 4899806764614318841}
   - component: {fileID: 5809053644610071262}
-  - component: {fileID: 5202883317904003137}
   m_Layer: 0
   m_Name: FrameSlot
   m_TagString: Untagged
@@ -76,8 +75,8 @@ MonoBehaviour:
   lockTargetRenderer: {fileID: 5495786354707151512}
   ghostMaterial: {fileID: -876546973899608171, guid: a7e80d4c44a5fef4e95c44c737299ee4, type: 3}
   transparencyProperty: _Transparency
-  unlockFadeDuration: 1.5
-  lockFadeDuration: 0.5
+  unlockFadeDuration: 0.15
+  lockFadeDuration: 0.2
   ejectForce: 35
   placePrompt: PRESS E TO PLACE FRAME
   takePrompt: PRESS E TO TAKE FRAME
@@ -131,27 +130,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5202883317904003137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2538504280786312456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a2af4fe34a3a54e9b786d746b6af82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FMODLoopEmitter
-  eventRef:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  effectParameterName: EffectLevel
-  playOnAwake: 0
 --- !u!1 &4558826271575929472
 GameObject:
   m_ObjectHideFlags: 0

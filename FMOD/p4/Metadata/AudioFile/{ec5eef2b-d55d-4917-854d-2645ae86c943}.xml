@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{ec5eef2b-d55d-4917-854d-2645ae86c943}">
+		<property name="assetPath">
+			<value>Image Puzzle/01.I had a family.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5bb7d8b0-9b25-4390-988d-8e3d35b4d90a}</destination>
+		</relationship>
+	</object>
+</objects>
