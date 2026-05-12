@@ -2,30 +2,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
+    private CharacterController controller;
     private GameObject head;
 
-    [Header("Camera")] public float Sensitivity;
+    [Header("Camera")]
+    public float Sensitivity;
     public float verticalClamp;
     public Vector2 rotation = Vector2.zero;
-    
-    [Header("Movement")] public float acceleration;
-    public float walkingSpeed, sprintingSpeed;
-    
-    [Header("Jumping")] public float jumpForce;
-    public float rayLength;
-    
-    [Header("Keys")] public KeyCode forward;
+
+    [Header("Movement")]
+    public float walkingSpeed = 5f;
+    public float sprintingSpeed = 8f;
+
+    [Header("Jumping")]
+    public float jumpForce = 5f;
+    public float gravity = -20f;
+
+    [Header("Keys")]
+    public KeyCode forward;
     public KeyCode backward, left, right, sprint, jump;
 
-    private Vector3 movement;
     private float topSpeed;
-    private bool isGrounded;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float verticalVelocity = 0f;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
         head = transform.GetChild(0).gameObject;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -36,16 +38,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyUp(sprint))
         {
-                topSpeed = walkingSpeed;
-                Debug.Log("Walking");
+            topSpeed = walkingSpeed;
         }
 
         if (Input.GetKeyDown(sprint))
         {
             topSpeed = sprintingSpeed;
-            Debug.Log("Sprinting");
         }
-        
+
         if (Input.GetKey(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -58,54 +58,34 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = false;
         }
 
-        CheckGround();
-        
-        if (Input.GetKeyDown(jump) && isGrounded)
+        // Gravity and jumping
+        if (controller.isGrounded)
         {
-            InitiateJump();
+            verticalVelocity = -2f; // Small downward force to keep grounded
+            if (Input.GetKeyDown(jump))
+            {
+                verticalVelocity = jumpForce;
+            }
         }
-        
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        // Movement
+        Vector3 movement = Vector3.zero;
+
+        if (Input.GetKey(forward))  movement += Vector3.forward;
+        if (Input.GetKey(backward)) movement += Vector3.back;
+        if (Input.GetKey(left))     movement += Vector3.left;
+        if (Input.GetKey(right))    movement += Vector3.right;
+
+        movement = transform.TransformDirection(movement.normalized) * topSpeed;
+        movement.y = verticalVelocity;
+
+        controller.Move(movement * Time.deltaTime);
+
         CameraMovement();
-        
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        movement = Vector3.zero;
-
-        if (Input.GetKey(forward))
-        {
-            movement += Vector3.forward;
-        }
-
-        if (Input.GetKey(backward))
-        {
-            movement += Vector3.back;
-        }
-
-        if (Input.GetKey(left))
-        {
-            movement += Vector3.left;
-        }
-
-        if (Input.GetKey(right))
-        {
-            movement += Vector3.right;
-        }
-        
-        //Thing about translating movementvector into velocity here
-        ApplyMovement();
-    }
-
-    void ApplyMovement()
-    {
-        if (rb.linearVelocity.magnitude < topSpeed)
-        {
-            if (movement != Vector3.zero)
-                rb.AddForce(acceleration * transform.TransformDirection(movement), ForceMode.Acceleration);
-        }
-        
-        //Debug.Log("Velocity: " + rb.linearVelocity.magnitude);
     }
 
     void CameraMovement()
@@ -113,30 +93,11 @@ public class PlayerController : MonoBehaviour
         rotation.x += Input.GetAxis("Mouse X");
         rotation.y += Input.GetAxis("Mouse Y");
         rotation.y = Mathf.Clamp(rotation.y, -verticalClamp, verticalClamp);
-        
+
         Quaternion xQuaternion = Quaternion.AngleAxis(rotation.x * Sensitivity, Vector3.up);
         Quaternion yQuaternion = Quaternion.AngleAxis(rotation.y * Sensitivity, Vector3.left);
-        
+
         transform.localRotation = xQuaternion;
         head.transform.localRotation = yQuaternion;
-    }
-
-    void CheckGround()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, rayLength))
-        {
-            //Debug.Log("Grounded");
-            isGrounded = true;
-        }
-        else
-        {
-            //Debug.Log("Not Grounded");
-            isGrounded = false;
-        }
-    }
-
-    void InitiateJump()
-    {
-        rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
     }
 }
