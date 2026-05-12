@@ -2698,6 +2698,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191151035298158553, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 42ad8398f610c1542b3cb1f0b9191ca1, type: 2}
+    - target: {fileID: 1191151035298158553, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7135646592246618462, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2784,7 +2792,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7135646592246618462, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 357536817}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
 --- !u!1001 &151647078
@@ -10180,6 +10191,78 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &357536816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357536817}
+  - component: {fileID: 357536819}
+  - component: {fileID: 357536818}
+  m_Layer: 5
+  m_Name: Fade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &357536817
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357536816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 564920895}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3000, y: 3000}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &357536818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357536816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &357536819
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357536816}
+  m_CullTransparentMesh: 1
 --- !u!1 &358923816
 GameObject:
   m_ObjectHideFlags: 0
@@ -13059,6 +13142,10 @@ PrefabInstance:
       propertyPath: quitTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1474567078259043880, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 357536818}
     - target: {fileID: 1474567078259043880, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
       propertyPath: screenFadeTime
       value: 4
@@ -16116,6 +16203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc84b7f08cf9c74bb8279ea00fb0bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarrySlotUI
+--- !u!224 &564920895 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7135646592246618462, guid: 3863e0967a19e2243b6fd60f926bef7b, type: 3}
+  m_PrefabInstance: {fileID: 146239501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &565357210
 Mesh:
   m_ObjectHideFlags: 0
