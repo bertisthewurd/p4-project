@@ -4,20 +4,25 @@ using UnityEngine.UI;
 
 public class WinCon : MonoBehaviour
 {
-    public AudioClip emilWin, mikkelWin, gameWin;
-    public float emilSoundLength, mikkelSoundLength;
+    public static WinCon Instance { get; private set; }
+
     public float screenFadeTime, quitTime;
-    private AudioSource audioSource;
     private bool onePuzzleDone = false;
     private bool fadeScreen = false;
-    
+
     private GameObject player;
     public RawImage fadeImage;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,10 +48,9 @@ public class WinCon : MonoBehaviour
     public void PlayEmilWin()
     {
         Debug.Log("Win Con says: Emil Done");
-        audioSource.PlayOneShot(emilWin);
         if (onePuzzleDone)
         {
-            StartCoroutine(PlayGameWin(emilSoundLength));
+            StartCoroutine(PlayGameWin());
         }
         else
         {
@@ -57,10 +61,9 @@ public class WinCon : MonoBehaviour
     public void PlayMikkelWin()
     {
         Debug.Log("Win Con says: Mikkel Done");
-        audioSource.PlayOneShot(mikkelWin);
         if (onePuzzleDone)
         {
-            StartCoroutine(PlayGameWin(mikkelSoundLength));
+            StartCoroutine(PlayGameWin());
         }
         else
         {
@@ -68,10 +71,8 @@ public class WinCon : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayGameWin(float soundLength)
+    private IEnumerator PlayGameWin()
     {
-        yield return new WaitForSeconds(soundLength);
-        audioSource.PlayOneShot(gameWin);
         fadeScreen = true;
         yield return new WaitForSeconds(quitTime);
         Application.Quit();
