@@ -25,9 +25,12 @@ public class PuzzleManager : MonoBehaviour //Handles swap logic and when object 
 
         EventInstance previewInstance = RuntimeManager.CreateInstance(carriedSound.ambientLoopEvent);
         previewInstance.start();
+        
+        // Attach to the player so FMOD has a 3D position
+        RuntimeManager.AttachInstanceToGameObject(previewInstance, Camera.main.transform);
 
         // stop after designated amount of time
-        StartCoroutine(StopPreviewAfterDelay(previewInstance, 2f));
+        StartCoroutine(StopPreviewAfterDelay(previewInstance, 5f));
     }
 
     private System.Collections.IEnumerator StopPreviewAfterDelay(EventInstance preview, float delay)
