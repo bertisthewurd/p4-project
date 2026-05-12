@@ -138,9 +138,14 @@ public class FMODSequentialPlayer : MonoBehaviour
             _storyInstance = RuntimeManager.CreateInstance(storyRevealEvent);
             RuntimeManager.AttachInstanceToGameObject(_storyInstance, anchor.gameObject);
             _storyInstance.start();
+
+            float clipLength = GetEventLengthSeconds(storyRevealEvent);
+            if (clipLength <= 0f) clipLength = fallbackClipLength;
+            yield return new WaitForSeconds(clipLength);
+
+            WinCon.Instance?.PlayMikkelWin();
         }
         _playRoutine = null;
-        yield break;
     }
 
     private void StopStory()
