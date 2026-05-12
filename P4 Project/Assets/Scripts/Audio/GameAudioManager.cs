@@ -162,6 +162,15 @@ public class GameAudioManager : MonoBehaviour
     public void ExitMinistryOffice(float completionPercent)
     {
         inMinistryOffice = false;
-        SetNormalMusic(completionPercent);
+        Debug.Log($"Exiting ministry. PlayerInHouse: {InsideHouseTrigger.PlayerInHouse}");
+
+        if (InsideHouseTrigger.PlayerInHouse)
+        {
+            SetInsideHouseMusic();
+        }
+        else
+        {
+            SetNormalMusic(completionPercent);
+        }
     }
 }

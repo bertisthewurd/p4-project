@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class InsideHouseTrigger : MonoBehaviour
 {
+    public static bool PlayerInHouse { get; private set; } = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            PlayerInHouse = true;
             GameAudioManager.Instance.SetInsideHouseMusic();
         }
     }
@@ -14,6 +17,7 @@ public class InsideHouseTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayerInHouse = false;
             GameAudioManager.Instance.SetNormalMusic(GameProgressManager.Instance.CompletionPercent);
         }
     }
