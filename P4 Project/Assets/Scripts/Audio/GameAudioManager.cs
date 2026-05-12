@@ -5,9 +5,6 @@ using FMOD.Studio;
 public class GameAudioManager : MonoBehaviour
 {
     public static GameAudioManager Instance { get; private set; }
-    
-    public enum MusicState { Normal, InsideHouse, MinistryOffice }
-    public MusicState CurrentMusic { get; private set; } = MusicState.Normal;
 
     [Header("FMOD Events")]
     [SerializeField] private EventReference calmMusicEvent;
@@ -24,6 +21,9 @@ public class GameAudioManager : MonoBehaviour
     private EventInstance ministryOfficeInstance;
     private bool insideHouseStarted = false;
     private bool ministryOfficeStarted = false;
+
+    // ---- Ministry Office Priority Flag ----
+    private bool inMinistryOffice = false;
 
     // ---- Volume Fading ----
     private float calmVolumeCurrent = 1f,            calmVolumeTarget = 1f;
@@ -106,6 +106,8 @@ public class GameAudioManager : MonoBehaviour
 
     public void SetNormalMusic(float completionPercent)
     {
+        if (inMinistryOffice) return;
+
         insideHouseVolumeTarget = 0f;
         ministryOfficeVolumeTarget = 0f;
 
@@ -123,6 +125,8 @@ public class GameAudioManager : MonoBehaviour
 
     public void SetInsideHouseMusic()
     {
+        if (inMinistryOffice) return;
+
         if (!insideHouseStarted)
         {
             insideHouseInstance = RuntimeManager.CreateInstance(insideHouseEvent);
@@ -139,6 +143,8 @@ public class GameAudioManager : MonoBehaviour
 
     public void SetMinistryOfficeMusic()
     {
+        inMinistryOffice = true;
+
         if (!ministryOfficeStarted)
         {
             ministryOfficeInstance = RuntimeManager.CreateInstance(ministryOfficeEvent);
@@ -151,5 +157,11 @@ public class GameAudioManager : MonoBehaviour
         upbeatVolumeTarget = 0f;
         insideHouseVolumeTarget = 0f;
         ministryOfficeVolumeTarget = 1f;
+    }
+
+    public void ExitMinistryOffice(float completionPercent)
+    {
+        inMinistryOffice = false;
+        SetNormalMusic(completionPercent);
     }
 }

@@ -14,7 +14,8 @@ public class MinistryOfficeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameAudioManager.Instance.SetNormalMusic(GameProgressManager.Instance.CompletionPercent);
+            GameAudioManager.Instance.ExitMinistryOffice(GameProgressManager.Instance.CompletionPercent);
         }
     }
 }
+
