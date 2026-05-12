@@ -43,13 +43,13 @@
 	<object class="MasterTrack" id="{95216899-fe11-41a2-9118-d9b6fbe78f5d}">
 		<relationship name="automationTracks">
 			<destination>{d853a5e7-80c2-4afc-a12a-6e0abc9ab2a9}</destination>
-			<destination>{031947e4-529f-4999-a677-227ac71ea8b5}</destination>
 			<destination>{d91c58fc-3e64-4fe9-b81f-21035adf3f79}</destination>
 			<destination>{57c70faf-dbc1-4819-9218-ff5ea512cd38}</destination>
 			<destination>{5ff7bba3-e291-476d-9de3-ae6d70093bad}</destination>
 			<destination>{39aba8f5-e3b6-424c-b88e-2022d4e8248b}</destination>
 			<destination>{27f787c2-635b-447b-ba34-e19186342117}</destination>
 			<destination>{66017a10-84dc-4266-a8c2-ee7f88a5f0fb}</destination>
+			<destination>{0ec02a9c-5d42-4848-8c6d-05870cb26af0}</destination>
 		</relationship>
 		<relationship name="modules">
 			<destination>{7cdfb9d1-a214-43c5-be6f-c92398944c6c}</destination>
@@ -103,11 +103,6 @@
 			<destination>{4cfba730-6727-4905-92ab-18de9cdc2de0}</destination>
 		</relationship>
 	</object>
-	<object class="AutomationTrack" id="{031947e4-529f-4999-a677-227ac71ea8b5}">
-		<relationship name="automator">
-			<destination>{cea9fe0a-5d7f-4cda-83e6-e607a5e74893}</destination>
-		</relationship>
-	</object>
 	<object class="AutomationTrack" id="{d91c58fc-3e64-4fe9-b81f-21035adf3f79}">
 		<relationship name="automator">
 			<destination>{1707ca95-4c2e-4007-b9d8-dc6435cfd795}</destination>
@@ -136,6 +131,11 @@
 	<object class="AutomationTrack" id="{66017a10-84dc-4266-a8c2-ee7f88a5f0fb}">
 		<relationship name="automator">
 			<destination>{ad494c6a-f282-4088-b03b-9b0921668453}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationTrack" id="{0ec02a9c-5d42-4848-8c6d-05870cb26af0}">
+		<relationship name="automator">
+			<destination>{cea9fe0a-5d7f-4cda-83e6-e607a5e74893}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{7cdfb9d1-a214-43c5-be6f-c92398944c6c}">
@@ -592,7 +592,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>0.399999976</value>
+			<value>0.5</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{736fb8a6-bb48-489d-86b3-ff402aef9e81}">
