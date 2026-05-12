@@ -29,53 +29,54 @@ public class VideoSelector : MonoBehaviour
 
         switch (sequenceIndex)
         {
-            case 0:
-                // Sequence 0 has only one scene.
-                videoPath = videoBasePath + "Seq0_Scene0.mp4";
-                break;
+           case 0:
+    // Sequence 0 has only one scene.
+    videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq0_Scene0.mp4");
+    Debug.Log("Video Path: " + videoPath);
+    break;
 
-            case 1:
-                switch (sceneID)
-                {
-                    case 0: videoPath = videoBasePath + "Seq1_Scene0.mp4"; break;
-                    case 1: videoPath = videoBasePath + "Seq1_Scene1.mp4"; break;
-                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
-                }
-                break;
+case 1:
+    switch (sceneID)
+    {
+        case 0: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq1_Scene0.mp4"); break;
+        case 1: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq1_Scene1.mp4"); break;
+        default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+    }
+    break;
 
-            case 2:
-                videoPath = videoBasePath + "Seq2_Scene0.mp4";
-                break;
+case 2:
+    videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq2_Scene0.mp4");
+    break;
 
-            case 3:
-                switch (sceneID)
-                {
-                    case 0: videoPath = videoBasePath + "Seq3_Scene0.mp4"; break;
-                    case 1: videoPath = videoBasePath + "Seq3_Scene1.mp4"; break;
-                    case 2: videoPath = videoBasePath + "Seq3_Scene2.mp4"; break;
-                    case 3: videoPath = videoBasePath + "Seq3_Scene3.mp4"; break;
-                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
-                }
-                break;
+case 3:
+    switch (sceneID)
+    {
+        case 0: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq3_Scene0.mp4"); break;
+        case 1: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq3_Scene1.mp4"); break;
+        case 2: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq3_Scene2.mp4"); break;
+        case 3: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq3_Scene3.mp4"); break;
+        default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+    }
+    break;
 
-            case 4:
-                videoPath = videoBasePath + "Seq4_Scene0.mp4";
-                break;
+case 4:
+    videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq4_Scene0.mp4");
+    break;
 
-            case 5:
-                switch (sceneID)
-                {
-                    case 0: videoPath = videoBasePath + "Seq5_Scene0.mp4"; break;
-                    case 1: videoPath = videoBasePath + "Seq5_Scene1.mp4"; break;
-                    case 2: videoPath = videoBasePath + "Seq5_Scene2.mp4"; break;
-                    case 3: videoPath = videoBasePath + "Seq5_Scene3.mp4"; break;
-                    default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
-                }
-                break;
+case 5:
+    switch (sceneID)
+    { 
+        case 0: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq5_Scene0.mp4"); break;
+        case 1: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq5_Scene1.mp4"); break;
+        case 2: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq5_Scene2.mp4"); break;
+        case 3: videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Seq5_Scene3.mp4"); break;
+        default: Debug.LogWarning($"Sequence {sequenceIndex}: unrecognised scene ID {sceneID}"); break;
+    }
+    break;
 
-            default:
-                Debug.LogWarning($"Unrecognised sequence index: {sequenceIndex}");
-                break;
+default:
+    Debug.LogWarning($"Unrecognised sequence index: {sequenceIndex}");
+    break;
         }
 
         if (videoPath != null)

@@ -23,8 +23,13 @@ public class ImageSystem : MonoBehaviour
     private float _smoothVelocity   = 0f;
 
     public event System.Action<float> OnIntensityChanged;
-    public float CurrentIntensity => ApplyCurve(_currentIntensity);
+    public event System.Action<FrameSlot> OnFrameCorrectlyPlaced;
+    public event System.Action<FrameSlot> OnFrameWronglyPlaced;
+    public float CurrentIntensity => _currentIntensity;
     public bool IsSolved => Mathf.Approximately(_targetIntensity, 0f);
+
+    private readonly HashSet<FrameSlot> _correctSlots = new();
+    private readonly HashSet<FrameSlot> _wrongSlots = new();
 
     void Start()
     {
@@ -47,9 +52,8 @@ public class ImageSystem : MonoBehaviour
 
         _currentIntensity = Mathf.SmoothDamp(_currentIntensity, _targetIntensity,
                                               ref _smoothVelocity, transitionSmoothTime);
-        float curved = ApplyCurve(_currentIntensity);
-        if (frameSystem != null) frameSystem.SetEffectIntensity(curved);
-        OnIntensityChanged?.Invoke(curved);
+        if (frameSystem != null) frameSystem.SetEffectIntensity(ApplyCurve(_currentIntensity));
+        OnIntensityChanged?.Invoke(_currentIntensity);
     }
 
     private float ApplyCurve(float t) => Mathf.Pow(t, 1f / intensityExponent);
@@ -59,11 +63,28 @@ public class ImageSystem : MonoBehaviour
         int correctCount = 0;
         foreach (var mapping in mappings)
         {
-            if (mapping.slot != null &&
-                mapping.slot.HeldFrame != null &&
-                mapping.slot.HeldFrame == mapping.correctFrame)
+            if (mapping.slot == null) continue;
+
+            bool hasFrame = mapping.slot.HeldFrame != null;
+            bool isCorrect = hasFrame && mapping.slot.HeldFrame == mapping.correctFrame;
+
+            if (isCorrect)
             {
                 correctCount++;
+                _wrongSlots.Remove(mapping.slot);
+                if (_correctSlots.Add(mapping.slot))
+                    OnFrameCorrectlyPlaced?.Invoke(mapping.slot);
+            }
+            else if (hasFrame)
+            {
+                _correctSlots.Remove(mapping.slot);
+                if (_wrongSlots.Add(mapping.slot))
+                    OnFrameWronglyPlaced?.Invoke(mapping.slot);
+            }
+            else
+            {
+                _correctSlots.Remove(mapping.slot);
+                _wrongSlots.Remove(mapping.slot);
             }
         }
 

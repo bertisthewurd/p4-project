@@ -17,6 +17,9 @@
 # Ignore Video folder
 Assets/Videos/
 
+# Ignore StreamingAssets folder
+Assets/StreamingAssets/
+
 # Recordings can get excessive in size
 /[Rr]ecordings/
 

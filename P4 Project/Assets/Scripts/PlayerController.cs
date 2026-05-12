@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")] public float Sensitivity;
     public float verticalClamp;
-    private Vector2 rotation = Vector2.zero;
+    public Vector2 rotation = Vector2.zero;
     
     [Header("Movement")] public float acceleration;
     public float walkingSpeed, sprintingSpeed;

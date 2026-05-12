@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 67687670081149039}
   - {fileID: 4517571609568969626}
+  - {fileID: 5410580819986091019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4542695431166961491
@@ -72,6 +73,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrameSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 1771759968662249409, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Path
+      value: event:/05 My Daughter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771759968662249409, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data1
+      value: -187420931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771759968662249409, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data2
+      value: 1178977761
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771759968662249409, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data3
+      value: 1921506441
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771759968662249409, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data4
+      value: -1417188671
+      objectReference: {fileID: 0}
     - target: {fileID: 2956255659697161468, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.26
@@ -111,6 +132,86 @@ PrefabInstance:
     - target: {fileID: 2956255659697161468, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081282470799760160, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Path
+      value: event:/04 But I got caught
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081282470799760160, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data1
+      value: -571019288
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081282470799760160, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data2
+      value: 1295883218
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081282470799760160, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data3
+      value: 1208246675
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081282470799760160, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data4
+      value: 1996556544
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110453157876021353, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Path
+      value: event:/03 I was Planted
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110453157876021353, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data1
+      value: 348977681
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110453157876021353, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data2
+      value: 1128986305
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110453157876021353, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data3
+      value: 1989937798
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110453157876021353, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data4
+      value: -1913385208
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273561384730539942, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Path
+      value: event:/01 I had a family
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273561384730539942, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data1
+      value: -1124724045
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273561384730539942, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data2
+      value: 1075426710
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273561384730539942, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data3
+      value: 1258429615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273561384730539942, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data4
+      value: 84032633
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839512325460306043, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Path
+      value: event:/02 I became a disloyal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839512325460306043, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data1
+      value: 1523983582
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839512325460306043, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data2
+      value: 1330092811
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839512325460306043, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data3
+      value: 560584871
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839512325460306043, guid: 48cbb65e18e6a4a4d9299c84b1509306, type: 3}
+      propertyPath: eventRef.Guid.Data4
+      value: -949967416
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -306,3 +407,101 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e353f49df28a214eaaa08273c65b6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrameSlot
+--- !u!1001 &8082951969032771967
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6751930105208922157}
+    m_Modifications:
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15000023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4860263
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.9200002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      propertyPath: m_Name
+      value: PlayButton
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1889241418427919440, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7445865340623050977}
+  m_SourcePrefab: {fileID: 100100000, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+--- !u!1 &2246144280568708458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8000505851786601493, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+  m_PrefabInstance: {fileID: 8082951969032771967}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7445865340623050977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246144280568708458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0edc834f3ff3544a6b3f8609f698e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayButton
+  promptMessage: 
+  audioController: {fileID: 0}
+  sequentialPlayer: {fileID: 0}
+  pressOffset: {x: 0.15, y: 0, z: 0}
+  pressDuration: 0.08
+  releaseDuration: 0.15
+  idlePrompt: PRESS E TO PLAY
+--- !u!4 &5410580819986091019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4267819715192034676, guid: bcd3ecf6b9cf2d040b2a25e75e8badee, type: 3}
+  m_PrefabInstance: {fileID: 8082951969032771967}
+  m_PrefabAsset: {fileID: 0}
