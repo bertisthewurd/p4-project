@@ -1,55 +1,116 @@
 using UnityEngine;
+using UnityEngine.UI;
+using FMOD.Studio;
+using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-[RequireComponent(typeof(AudioSource))] // This attribute tells Unity that this script REQUIRES an AudioSource component on the same GameObject.
-public class PuzzleObject : MonoBehaviour
+public class PuzzleObject : Interactable  // Inherit from Interactable so PlayerInteract handles input for us
 {
 
     public string objectName;  // "Shoes", "Typewriter", etc.
     public PuzzleSoundData correctSound;   // Refference to PuzzleSoundData asset that should be attached to the object when puzzle is solved 
     public PuzzleSoundData startingSound;  // Refference to PuzzleSoundData asset on the object at the start (the scrambled one)
     
-    private AudioSource audioSource;  //Audiosource component
     private PuzzleSoundData currentSound;  // Sound currently assigned to the object
+    private EventInstance ambientEventInstance; // FMOD event instance for looping event
 
     public bool IsCorrect => currentSound == correctSound;  //Returns true if currentSound is the right one
     public bool IsEmpty => currentSound == null;  // Returns true when object has no sound 
     
-    private bool playerInRange = false; 
+    private bool playerInRange = false;
+    private bool isLocked = false; // Once correct, can no longer be swapped
+    private bool wasCorrectLastFrame = false; // Tracks transition from incorrect to correct
 
     public GameObject noteIconObject;
     public GameObject emptyIconObject;
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    public Image noteIconImage;
 
     void Start()
     {
         AssignSound(startingSound);  //Set puzzle sounds to the scrambled state
         UpdateIconVisibility(false);  //Hide icons since player is not in range
+        promptMessage = "Press E to swap sound";  // Text shown by PlayerUI when looking at this object
+    }
+
+    // Called by PlayerInteract when player presses E while looking at this object
+    protected override void Interact()
+    {
+        if (isLocked) return;  // Locked objects cannot be interacted with
+        PuzzleManager.Instance.OnObjectClicked(this);
     }
 
     public void AssignSound(PuzzleSoundData newSound) //Used when objects sound changes (on awake and when player swaps)
     {
+        if (isLocked) return;  // Locked objects cannot have their sound changed
+        
         currentSound = newSound;
 
-        if (newSound != null && newSound.ambientLoop != null)  //Check if there is valid sound and audioclip
+        StopAmbient();
+
+        if (newSound != null && !newSound.ambientLoopEvent.IsNull)  //Check if there is valid sound and audioclip
         {
-            audioSource.clip = newSound.ambientLoop;  //Hand audioclip to audiosorce and loop it
-            audioSource.loop = true;
+            //Create new FMOD instance for the new sound
+            ambientEventInstance = RuntimeManager.CreateInstance(newSound.ambientLoopEvent);
+            RuntimeManager.AttachInstanceToGameObject(ambientEventInstance, transform);
             
+            // Only start playing if player is currently in range
             if (playerInRange)
-                audioSource.Play();
+                ambientEventInstance.start();
         }
-        else
+        
+        if (noteIconImage != null && newSound != null && newSound.icon !=null)  //Update world-space icon to match the current sound
         {
-            audioSource.Stop();  // No sound, sound go .....
-            audioSource.clip = null;
+            noteIconImage.sprite = newSound.icon;
         }
         
         UpdateIconVisibility(playerInRange);
         
         Debug.Log($"{objectName} now has sound: {(newSound != null ? newSound.soundName : "EMPTY")}");
+        // Check if this assignment made the object correct
+        if (!wasCorrectLastFrame && IsCorrect)
+        {
+            OnCorrectPlacement();
+        }
+        wasCorrectLastFrame = IsCorrect;
+    }
+    
+    // Called when this object transitions from incorrect to correct
+    private void OnCorrectPlacement()
+    {
+        Debug.Log($"{objectName} correctly placed!");
+        
+        isLocked = true;
+        promptMessage = "";  // No prompt for locked objects
+
+        StopAmbient(); 
+        
+        // Hide both icons - this object is done
+        if (noteIconObject != null) noteIconObject.SetActive(false);
+        if (emptyIconObject != null) emptyIconObject.SetActive(false);
+        
+        // Play the win soundbite (currently a stub for FMOD wiring tomorrow)
+        PlayWinSoundbite();
+        
+        // Notify the manager so it can track total solved count
+        PuzzleManager.Instance.OnObjectSolved(this);
+    }
+    
+    // Plays the voiceline via FMOD when this object is correctly placed
+    private void PlayWinSoundbite()
+    {
+        if (currentSound != null && !currentSound.winSoundbiteEvent.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(currentSound.winSoundbiteEvent, gameObject);
+        }
+    }
+
+    private void StopAmbient()
+    {
+        if (ambientEventInstance.isValid())
+        {
+            ambientEventInstance.stop(STOP_MODE.IMMEDIATE);
+            ambientEventInstance.release();
+        }
     }
     
     public PuzzleSoundData GetCurrentSound() => currentSound;  // Other scripts can read what sound 
@@ -63,11 +124,11 @@ public class PuzzleObject : MonoBehaviour
             playerInRange = true;
             UpdateIconVisibility(true);
 
-            if (currentSound != null && audioSource.clip != null && !audioSource.isPlaying) // Resume audio if there's a sound assigned
+            // Start the ambient sound when player enters
+            if (ambientEventInstance.isValid())
             {
-                audioSource.Play();
+                ambientEventInstance.start();
             }
-            
             Debug.Log($"Player entered range of {objectName}");
         }
     }
@@ -79,16 +140,33 @@ public class PuzzleObject : MonoBehaviour
             playerInRange = false;
             UpdateIconVisibility(false);
             
-            audioSource.Stop();
-            
+            // Stop the ambient sound when player leaves
+            if (ambientEventInstance.isValid())
+            {
+                ambientEventInstance.stop(STOP_MODE.IMMEDIATE);
+            }
             Debug.Log($"Player left range of {objectName}");
         }
     }
+
+    void OnDestroy() //Cleanup when object is destroyed
+    {
+        StopAmbient();
+    }
     
     public bool IsPlayerInRange() => playerInRange; //Proximity state usefull for other scripts
+    public bool IsLocked => isLocked;
 
-    private void UpdateIconVisibility(bool inRange) //Decides which icon should be visibly if any
+    private void UpdateIconVisibility(bool inRange)
     {
+        if (isLocked)
+        {
+            // Locked objects show no icons
+            if (noteIconObject != null) noteIconObject.SetActive(false);
+            if (emptyIconObject != null) emptyIconObject.SetActive(false);
+            return;
+        }
+    
         if (noteIconObject != null)
             noteIconObject.SetActive(inRange && !IsEmpty);
         if (emptyIconObject != null)

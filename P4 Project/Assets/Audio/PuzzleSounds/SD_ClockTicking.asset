@@ -14,3 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleSoundData
   soundName: Clock
   ambientLoop: {fileID: 8300000, guid: 165f4ede4c56aeb4093be3f0f5fe31b9, type: 3}
+  icon: {fileID: 21300000, guid: ea5b0a48467592d4eaf419eadd0ff828, type: 3}
+  ambientLoopEvent:
+    Guid:
+      Data1: 1555389447
+      Data2: 1075535451
+      Data3: -1094268240
+      Data4: -2015665383
+    Path: event:/EmilPuzzle/Clock
+  winSoundbiteEvent:
+    Guid:
+      Data1: 559419655
+      Data2: 1131660518
+      Data3: 1104310419
+      Data4: 961633986
+    Path: event:/EmilPuzzle/VL_Clock
