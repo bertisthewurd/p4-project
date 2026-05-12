@@ -13055,6 +13055,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Win Con Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1474567078259043880, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: quitTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474567078259043880, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
+      propertyPath: screenFadeTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3009509188234077297, guid: 0b20f48f841aef14389516872bcabc85, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.25071
