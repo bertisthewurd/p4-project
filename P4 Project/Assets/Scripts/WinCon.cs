@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class WinCon : MonoBehaviour
 {
     public static WinCon Instance { get; private set; }
@@ -31,7 +32,8 @@ public class WinCon : MonoBehaviour
 
         if (fadeScreen)
         {
-            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, fadeImage.color.a + Time.deltaTime / screenFadeTime);
+            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b,
+                fadeImage.color.a + Time.deltaTime / screenFadeTime);
         }
     }
 
