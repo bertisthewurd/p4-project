@@ -82,12 +82,21 @@ public class PlayerInteract : MonoBehaviour
             {
                 playerUI.UpdateText(slot.promptMessage);
                 if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (slot.IsEmpty)
+                        InteractionTracker.Log("place");
+                    else
+                        InteractionTracker.Log("swap");
                     slot.BaseInteract();
+                }
                 return;
             }
 
             if (Input.GetKeyDown(KeyCode.E))
+            {
+                InteractionTracker.Log("putdown");
                 PickUp.DropCurrent();
+            }
             return;
         }
 
@@ -95,7 +104,10 @@ public class PlayerInteract : MonoBehaviour
         {
             playerUI.UpdateText(hit.promptMessage);
             if (Input.GetKeyDown(KeyCode.E))
+            {
+                InteractionTracker.Log("pickup");
                 hit.BaseInteract();
+            }
         }
     }
 
