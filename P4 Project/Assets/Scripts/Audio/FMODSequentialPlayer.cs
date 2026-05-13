@@ -6,8 +6,10 @@ using FMOD.Studio;
 
 public class FMODSequentialPlayer : MonoBehaviour
 {
-    [Tooltip("Seconds the next clip takes to fade in while the previous one fades out. Set to 0 for hard cuts.")]
+    [Tooltip("Seconds each clip takes to fade in and fade out. Set to 0 for hard cuts.")]
     [SerializeField] public float crossfadeDuration = 0.5f;
+    [Tooltip("Seconds of silence between one clip finishing its fade-out and the next clip starting its fade-in.")]
+    [SerializeField] public float TimeBetweenClips = 1f;
     [Tooltip("Fallback clip length (seconds) if FMOD can't report the event's natural length.")]
     [SerializeField] public float fallbackClipLength = 4f;
     [Tooltip("Played instead of the sequence when isSolved is true.")]
@@ -58,60 +60,54 @@ public class FMODSequentialPlayer : MonoBehaviour
             Emitters[0].SetEffectLevel(effectLevel);
 
         float fadeDur = Mathf.Max(0.01f, crossfadeDuration);
+        float gap = Mathf.Max(0f, TimeBetweenClips);
+        bool isFirst = true;
 
         foreach (var emitter in Emitters)
         {
             if (emitter == null || emitter.eventRef.IsNull) continue;
+
+            // Silent gap between clips (skipped before the first clip).
+            if (!isFirst && gap > 0f) yield return new WaitForSeconds(gap);
+            isFirst = false;
 
             // Use the event's natural timeline length so each clip plays exactly once,
             // even though the event has a loop region (needed by the ambient behavior).
             float clipLength = GetEventLengthSeconds(emitter.eventRef);
             if (clipLength <= 0f) clipLength = fallbackClipLength;
 
-            // Promote the currently-playing instance to "previous" so it fades out
-            // while the new one fades in.
-            _previousInstance = _sequenceInstance;
-
             _sequenceInstance = RuntimeManager.CreateInstance(emitter.eventRef);
             RuntimeManager.AttachInstanceToGameObject(_sequenceInstance, anchor.gameObject);
             _sequenceInstance.setVolume(0f);
             _sequenceInstance.start();
 
-            // Crossfade — this is also the first `fadeDur` of this clip's natural playback.
-            float t = 0f;
-            while (t < fadeDur)
-            {
-                t += Time.deltaTime;
-                float p = Mathf.Clamp01(t / fadeDur);
-                if (_sequenceInstance.isValid()) _sequenceInstance.setVolume(p * targetVolume);
-                if (_previousInstance.isValid()) _previousInstance.setVolume((1f - p) * targetVolume);
-                yield return null;
-            }
-            if (_sequenceInstance.isValid()) _sequenceInstance.setVolume(targetVolume);
-            ReleasePreviousInstance();
+            // Fade in.
+            yield return FadeInstance(_sequenceInstance, 0f, targetVolume, fadeDur);
 
-            // Sustain until `fadeDur` before the natural end. The next iteration will
-            // start the next clip, which fades in while this one fades out — so this
-            // clip plays for exactly `clipLength` seconds total and never loops.
+            // Sustain until `fadeDur` before the natural end so the fade-out finishes
+            // right as the clip ends — clip plays for exactly `clipLength` seconds.
             float sustain = clipLength - 2f * fadeDur;
             if (sustain > 0f) yield return new WaitForSeconds(sustain);
-        }
 
-        // Fade out the final clip (no next clip to crossfade with).
-        if (_sequenceInstance.isValid())
-        {
-            float t = 0f;
-            while (t < fadeDur)
-            {
-                t += Time.deltaTime;
-                float p = Mathf.Clamp01(t / fadeDur);
-                if (_sequenceInstance.isValid()) _sequenceInstance.setVolume((1f - p) * targetVolume);
-                yield return null;
-            }
+            // Fade out, then release before the gap so it's truly silent.
+            yield return FadeInstance(_sequenceInstance, targetVolume, 0f, fadeDur);
             StopSequenceInstances();
         }
 
         _playRoutine = null;
+    }
+
+    private IEnumerator FadeInstance(EventInstance instance, float from, float to, float duration)
+    {
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float p = Mathf.Clamp01(t / duration);
+            if (instance.isValid()) instance.setVolume(Mathf.Lerp(from, to, p));
+            yield return null;
+        }
+        if (instance.isValid()) instance.setVolume(to);
     }
 
     private float GetEventLengthSeconds(EventReference eventRef)

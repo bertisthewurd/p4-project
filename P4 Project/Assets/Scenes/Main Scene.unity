@@ -19780,7 +19780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.61
+      value: 1.78
       objectReference: {fileID: 0}
     - target: {fileID: 2733243005181411301, guid: 34f00a0970afad04e856301c46989f03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21996,6 +21996,18 @@ PrefabInstance:
       propertyPath: playerListener
       value: 
       objectReference: {fileID: 631034150}
+    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
+      propertyPath: sequenceVolume
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
+      propertyPath: TimeBetweenClips
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167249906617017876, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
+      propertyPath: crossfadeDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3201925412149568064, guid: 4dd7ee291d7b4264694b2f3d43f655be, type: 3}
       propertyPath: m_Name
       value: Audio Controller

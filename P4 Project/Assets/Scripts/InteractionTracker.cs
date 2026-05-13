@@ -38,6 +38,7 @@ public class InteractionTracker : MonoBehaviour
     private struct LogEntry
     {
         public float gameTime;
+        public string wallTime;
         public string entry;
         public string type;
     }
@@ -92,15 +93,22 @@ public class InteractionTracker : MonoBehaviour
 
         // Create log entry
         float elapsed = Time.realtimeSinceStartup - _sessionStartTime;
+        // Copenhagen time (CET/CEST) for sync with observation tool
+        string wallTime = System.TimeZoneInfo.ConvertTimeFromUtc(
+            System.DateTime.UtcNow,
+            System.TimeZoneInfo.FindSystemTimeZoneById(GetCopenhagenTzId())
+        ).ToString("HH:mm:ss");
+
         LogEntry entry = new LogEntry
         {
             gameTime = elapsed,
+            wallTime = wallTime,
             entry = $"{type} #{_counts[type]}",
             type = type
         };
         _log.Add(entry);
 
-        Debug.Log($"[InteractionTracker] {FormatTime(elapsed)} | {entry.entry}");
+        Debug.Log($"[InteractionTracker] {FormatTime(elapsed)} ({wallTime}) | {entry.entry}");
     }
 
     /// <summary>
@@ -158,12 +166,12 @@ public class InteractionTracker : MonoBehaviour
 
             // Log section
             writer.WriteLine();
-            writer.WriteLine("Participant,Game_Time,Entry,Type");
+            writer.WriteLine("Participant,Game_Time,Wall_Time,Entry,Type");
 
             foreach (LogEntry entry in _log)
             {
                 string safeEntry = entry.entry.Replace("\"", "\"\"");
-                writer.WriteLine($"{pid},{FormatTime(entry.gameTime)},\"{safeEntry}\",{entry.type}");
+                writer.WriteLine($"{pid},{FormatTime(entry.gameTime)},{entry.wallTime},\"{safeEntry}\",{entry.type}");
             }
         }
 
@@ -183,6 +191,20 @@ public class InteractionTracker : MonoBehaviour
         int m = (total % 3600) / 60;
         int s = total % 60;
         return $"{h:D2}:{m:D2}:{s:D2}";
+    }
+
+    // Windows uses "Romance Standard Time", Mac/Linux use "Europe/Copenhagen"
+    private static string GetCopenhagenTzId()
+    {
+        try
+        {
+            System.TimeZoneInfo.FindSystemTimeZoneById("Europe/Copenhagen");
+            return "Europe/Copenhagen";
+        }
+        catch
+        {
+            return "Romance Standard Time";
+        }
     }
 
     // Auto-export when the game closes
